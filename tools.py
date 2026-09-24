@@ -41,25 +41,68 @@ def web_search(query: str, max_results: int | None = None) -> SearchResponse:
 
 
 def fetch_page(url: str, timeout: int | None = None) -> PageContent:
-    """Fetch a URL and extract its main text content."""
+    """Fetch a URL and extract its main text content.
+
+    Uses trafilatura's built-in fetcher as the primary method (handles
+    User-Agent, retries, and encoding well across sites including Wikipedia).
+    Falls back to httpx if trafilatura's fetcher fails.
+    """
+    custom_timeout = timeout is not None
     timeout = timeout or config.FETCH_TIMEOUT_SECONDS
 
-    try:
-        resp = httpx.get(
-            url,
-            timeout=timeout,
-            follow_redirects=True,
-            headers={"User-Agent": "Mozilla/5.0 (research-agent)"},
-        )
-        resp.raise_for_status()
-    except httpx.TimeoutException:
-        return PageContent(url=url, title="", text="", error=f"Timeout after {timeout}s")
-    except httpx.HTTPStatusError as e:
-        return PageContent(url=url, title="", text="", error=f"HTTP {e.response.status_code}")
-    except Exception as e:
-        return PageContent(url=url, title="", text="", error=str(e))
+    _HEADERS = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/126.0.0.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
 
-    html = resp.text
+    html: str | None = None
+
+    # When a custom timeout is passed, use httpx so the timeout is respected.
+    # Otherwise prefer trafilatura's fetcher (better User-Agent handling).
+    if custom_timeout:
+        try:
+            resp = httpx.get(url, timeout=timeout, follow_redirects=True, headers=_HEADERS)
+            resp.raise_for_status()
+            html = resp.text
+        except httpx.TimeoutException:
+            return PageContent(url=url, title="", text="", error=f"Timeout after {timeout}s")
+        except httpx.HTTPStatusError as e:
+            return PageContent(url=url, title="", text="", error=f"HTTP {e.response.status_code}")
+        except Exception as e:
+            return PageContent(url=url, title="", text="", error=str(e))
+    else:
+        try:
+            html = trafilatura.fetch_url(url)
+        except Exception:
+            pass
+        if not html:
+            try:
+                resp = httpx.get(url, timeout=timeout, follow_redirects=True, headers=_HEADERS)
+                resp.raise_for_status()
+                html = resp.text
+            except httpx.TimeoutException:
+                return PageContent(url=url, title="", text="", error=f"Timeout after {timeout}s")
+            except httpx.HTTPStatusError as e:
+                return PageContent(url=url, title="", text="", error=f"HTTP {e.response.status_code}")
+            except Exception as e:
+                return PageContent(url=url, title="", text="", error=str(e))
+
+    if not html:
+        return PageContent(url=url, title="", text="", error="Could not download page")
+
+    title = ""
+    try:
+        meta = trafilatura.extract_metadata(html)
+        if meta and meta.title:
+            title = meta.title
+    except Exception:
+        pass
+
     extracted = trafilatura.extract(
         html,
         include_links=False,
@@ -68,16 +111,7 @@ def fetch_page(url: str, timeout: int | None = None) -> PageContent:
     )
 
     if not extracted:
-        return PageContent(url=url, title="", text="", error="No content extracted from page")
-
-    title = ""
-    metadata = trafilatura.extract(html, output_format="json", include_links=False)
-    if metadata:
-        import json
-        try:
-            title = json.loads(metadata).get("title", "")
-        except (json.JSONDecodeError, AttributeError):
-            pass
+        return PageContent(url=url, title=title, text="", error="No content extracted from page")
 
     if len(extracted) > 20_000:
         extracted = extracted[:20_000] + "\n... [truncated]"

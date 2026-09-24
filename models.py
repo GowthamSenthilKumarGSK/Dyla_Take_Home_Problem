@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Literal
 from pydantic import BaseModel, Field
 from datetime import datetime
 
@@ -43,6 +44,7 @@ class Claim(BaseModel):
     text: str
     citation: str | None = None
     confidence: str = "medium"
+    from_memory: bool = False
 
 
 class CostRecord(BaseModel):
@@ -65,15 +67,20 @@ class AnalystAnswer(BaseModel):
     cost: CostRecord = Field(default_factory=CostRecord)
 
 
+Verdict = Literal["supported", "unsupported", "contradicted", "no_citation", "source_error"]
+
+
 class AuditVerdict(BaseModel):
     claim: Claim
-    verdict: str  # supported / unsupported / contradicted / no_citation
+    verdict: Verdict
     evidence: str = ""
     source_excerpt: str = ""
+    source_url: str | None = None
 
 
 class AuditReport(BaseModel):
     analyst_question: str
     verdicts: list[AuditVerdict] = Field(default_factory=list)
     summary: str = ""
+    limitations: list[str] = Field(default_factory=list)
     cost: CostRecord = Field(default_factory=CostRecord)

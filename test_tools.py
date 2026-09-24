@@ -1,4 +1,10 @@
 """Manual test script for tools.py — run to verify search and fetch work."""
+import sys
+import io
+
+if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+
 from tools import web_search, fetch_page
 from memory import EntityMemory
 from models import Fact
