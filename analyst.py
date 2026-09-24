@@ -396,6 +396,15 @@ def run_analyst(question: str, model: str | None = None,
             answer_text = msg.content
             claims, sources, summary = _parse_answer(answer_text)
 
+            degraded_reason = _is_degraded_answer(answer_text, question)
+            if degraded_reason:
+                trace.append({
+                    "round": round_num,
+                    "event": "degraded_answer",
+                    "reason": degraded_reason,
+                    "timestamp": time.time() - start_time,
+                })
+
             if memory_used:
                 for c in claims:
                     c.from_memory = True
@@ -411,7 +420,7 @@ def run_analyst(question: str, model: str | None = None,
                 cost=total_cost,
             )
 
-            if memory:
+            if memory and not degraded_reason:
                 _store_entities(answer, memory)
 
             return answer
@@ -511,6 +520,40 @@ def _clean_claim_text(text: str) -> str:
     return text
 
 
+_GARBAGE_RE = re.compile(r'^[\d\s\.\-\*#:,;!?]+$')
+
+
+def _is_substantive(text: str) -> bool:
+    """Return False for fragments that are not real claims: lone numbers,
+    punctuation, markdown artifacts, or strings shorter than 8 characters
+    after stripping formatting."""
+    stripped = re.sub(r'[\s\*#\-_>]', '', text)
+    if len(stripped) < 8:
+        return False
+    if _GARBAGE_RE.match(text):
+        return False
+    return True
+
+
+_NONSENSE_MARKERS = [
+    "base64 decode", "encoded data", "string of characters",
+    "cannot interpret", "cannot determine", "here-string",
+    "prompt injection", "as an ai",
+]
+
+
+def _is_degraded_answer(answer_text: str, question: str) -> str | None:
+    """Return a short reason if the answer is obviously malformed, else None."""
+    lower = answer_text.lower()
+    for marker in _NONSENSE_MARKERS:
+        if marker in lower:
+            return f"answer contains nonsense marker: '{marker}'"
+    words = answer_text.split()
+    if len(words) < 10:
+        return f"answer too short ({len(words)} words)"
+    return None
+
+
 def _parse_answer(text: str) -> tuple[list[Claim], list[str], str]:
     """Parse the final answer text into claims, sources, and a summary."""
     # Step 1: separate the sources section from the answer body
@@ -540,7 +583,7 @@ def _parse_answer(text: str) -> tuple[list[Claim], list[str], str]:
             inline_sources.append(citation)
 
         clean = _clean_claim_text(sent)
-        if clean:
+        if clean and _is_substantive(clean):
             claims.append(Claim(text=clean, citation=citation))
 
     # Step 3: merge and deduplicate all sources

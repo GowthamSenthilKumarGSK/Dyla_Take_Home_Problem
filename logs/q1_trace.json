@@ -1,0 +1,197 @@
+{
+  "question_number": 1,
+  "question": "Who is the current Managing Director of Titan Company, and when did they take over?",
+  "difficulty": "easy",
+  "introduces": [
+    "Titan Company",
+    "Ajoy Chawla"
+  ],
+  "reuses": [],
+  "status": "success",
+  "analyst": {
+    "question": "Who is the current Managing Director of Titan Company, and when did they take over?",
+    "plan": "- Find the name of the current Managing Director of Titan Company.\n- Use search queries such as \"current Managing Director of Titan Company\" and \"Titan Company leadership change history.\"\n- Cross-check claims by verifying information from multiple sources including the company's official website, recent press releases, and financial reports.",
+    "claims": [
+      {
+        "text": "The provided content discusses a podcast episode featuring C K Venkatraman, the Managing Director of Titan Company Limited.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "During this conversation on Fortune India's In Conversation podcast, Venkatraman shared insights into the values that have shaped Titan over the decades and highlighted the company\u2019s long-standing focus on its people.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "Ajoy Chawla, who is designated as the MD of Titan Company, also participated in the discussion, offering perspectives on leadership and continuity.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "The episode can be watched on Fortune India's YouTube channel for a more comprehensive understanding of these topics.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "This podcast provides valuable insights into the management philosophy and strategic direction at Titan Company Limited, emphasizing their commitment to people-centric values and future-oriented leadership.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      }
+    ],
+    "summary": "The provided content discusses a podcast episode featuring C K Venkatraman, the Managing Director of Titan Company Limited. During this conversation on Fortune India's In Conversation podcast, Venkatraman shared insights into the values that have shaped Titan over the decades and highlighted the company\u2019s long-standing focus on its people.\n\nAjoy Chawla, who is designated as the MD of Titan Company, also participated in the discussion, offering perspectives on leadership and continuity. The episode can be watched on Fortune India's YouTube channel for a more comprehensive understanding of these topics.\n\nThis podcast provides valuable insights into the management philosophy and strategic direction at Titan Company Limited, emphasizing their commitment to people-centric values and future-oriented leadership.",
+    "sources_used": [],
+    "tool_trace": [
+      {
+        "round": 0,
+        "event": "model_fallback",
+        "from_model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "to_model": "google/gemma-4-31b-it:free",
+        "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3Jl6aKLIaiC4dg8s3fhdvCpIhBu'}",
+        "timestamp": 3.5690793991088867
+      },
+      {
+        "round": 0,
+        "event": "ollama_fallback",
+        "from_model": "google/gemma-4-31b-it:free",
+        "to_model": "qwen2.5:7b",
+        "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3Jl6aKLIaiC4dg8s3fhdvCpIhBu'}",
+        "timestamp": 8.7149338722229
+      },
+      {
+        "round": 0,
+        "event": "plan",
+        "model": "qwen2.5:7b",
+        "plan": "- Find the name of the current Managing Director of Titan Company.\n- Use search queries such as \"current Managing Director of Titan Company\" and \"Titan Company leadership change history.\"\n- Cross-check claims by verifying information from multiple sources including the company's official website, recent press releases, and financial reports.",
+        "timestamp": 32.367396116256714
+      },
+      {
+        "round": 1,
+        "tool": "web_search",
+        "arguments": {
+          "query": "current Managing Director of Titan Company",
+          "max_results": 5
+        },
+        "model": "qwen2.5:7b",
+        "timestamp": 72.1668312549591,
+        "result_preview": "Title: Titan Company Announces New Managing Director Ajoy Chawla ...\nURL: https://hr.economictimes.indiatimes.com/news/industry/titan-company-announces-new-managing-director-ajoy-chawla-and-key-management-changes/122423174\nSnippet: <p>Ajoy Chawla</p>\n\nAjoy Chawla\n\nNew Delhi, Tata group firm Titan Company Ltd on Friday announced top management changes with Ajoy Chawla set to become its Managing Director from January 1, 2026, succeeding incumbent C K Venkataraman.  \n  \n Chawla is currently the CEO of the company's jewellery division, Titan Company said in a regulatory filing.  \n  \n As part of the changes, Arun Narayan, head of Tanishq India business, will become CEO of its jewellery division from January 1, 2026, while Kuruvilla Markose, currently the CEO of the company's international business division, will succeed Suparna Mitra as the CEO of the watches division with effect from August 13, 2025, it added.  \n  \n\nAdvt [...] More;)\n\n Industry\n 1 min read\n\n# Titan announces senior managem"
+      },
+      {
+        "round": 2,
+        "event": "final_answer",
+        "model": "qwen2.5:7b",
+        "timestamp": 205.39222049713135
+      }
+    ],
+    "cost": {
+      "input_tokens": 2852,
+      "output_tokens": 234,
+      "model": "qwen2.5:7b",
+      "cost_usd": 0.0
+    }
+  },
+  "analyst_model": "qwen2.5:7b",
+  "audit": {
+    "analyst_question": "Who is the current Managing Director of Titan Company, and when did they take over?",
+    "verdicts": [
+      {
+        "claim": {
+          "text": "The provided content discusses a podcast episode featuring C K Venkatraman, the Managing Director of Titan Company Limited.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "During this conversation on Fortune India's In Conversation podcast, Venkatraman shared insights into the values that have shaped Titan over the decades and highlighted the company\u2019s long-standing focus on its people.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "Ajoy Chawla, who is designated as the MD of Titan Company, also participated in the discussion, offering perspectives on leadership and continuity.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "The episode can be watched on Fortune India's YouTube channel for a more comprehensive understanding of these topics.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "This podcast provides valuable insights into the management philosophy and strategic direction at Titan Company Limited, emphasizing their commitment to people-centric values and future-oriented leadership.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      }
+    ],
+    "summary": "5 claim(s) audited. 5 had no citation. Reliability: LOW.",
+    "limitations": [],
+    "cost": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "model": "none",
+      "cost_usd": 0.0
+    }
+  },
+  "auditor_model": "none",
+  "metrics": {
+    "analyst_input_tokens": 2852,
+    "analyst_output_tokens": 234,
+    "analyst_cost_inr": 0.0,
+    "analyst_latency_s": 205.6,
+    "analyst_model": "qwen2.5:7b",
+    "auditor_input_tokens": 0,
+    "auditor_output_tokens": 0,
+    "auditor_cost_inr": 0.0,
+    "auditor_latency_s": 0.0,
+    "auditor_model": "none",
+    "total_latency_s": 205.6,
+    "total_cost_inr": 0.0,
+    "verdicts": {
+      "supported": 0,
+      "unsupported": 0,
+      "contradicted": 0,
+      "no_citation": 5,
+      "source_error": 0
+    },
+    "memory_entities_before": 0,
+    "memory_entities_after": 0,
+    "memory_used": false
+  },
+  "memory_state": {}
+}

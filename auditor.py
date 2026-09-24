@@ -2,6 +2,7 @@
 from __future__ import annotations
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from openai import OpenAI
 
 import config
@@ -122,28 +123,37 @@ def run_auditor(answer: AnalystAnswer, model: str | None = None) -> AuditReport:
             cited_urls.append(url)
             seen.add(url)
 
-    # Step 2: fetch each source independently
+    # Step 2: fetch cited sources in parallel (I/O-bound, safe to parallelize)
     source_cache: dict[str, str] = {}
     failed_urls: set[str] = set()
 
-    for url in cited_urls:
-        trace.append({
-            "event": "fetch_source",
-            "url": url,
-            "timestamp": time.time() - start_time,
-        })
+    def _fetch_one(url: str) -> tuple[str, str | None, str | None]:
         page = fetch_page(url)
         if page.error or not page.text.strip():
-            failed_urls.add(url)
-            limitations.append(f"Could not fetch {url}: {page.error or 'empty page'}")
+            return url, None, page.error or "empty page"
+        return url, page.text, None
+
+    with ThreadPoolExecutor(max_workers=min(4, len(cited_urls) or 1)) as pool:
+        futures = {pool.submit(_fetch_one, url): url for url in cited_urls}
+        for future in as_completed(futures):
+            url = futures[future]
             trace.append({
-                "event": "fetch_failed",
+                "event": "fetch_source",
                 "url": url,
-                "error": page.error or "empty page",
                 "timestamp": time.time() - start_time,
             })
-        else:
-            source_cache[url] = page.text
+            fetched_url, text, error = future.result()
+            if error:
+                failed_urls.add(fetched_url)
+                limitations.append(f"Could not fetch {fetched_url}: {error}")
+                trace.append({
+                    "event": "fetch_failed",
+                    "url": fetched_url,
+                    "error": error,
+                    "timestamp": time.time() - start_time,
+                })
+            else:
+                source_cache[fetched_url] = text
 
     # Step 3: verify each claim
     verdicts: list[AuditVerdict] = []

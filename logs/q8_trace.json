@@ -1,0 +1,627 @@
+{
+  "question_number": 8,
+  "question": "Which country has completed more successful Moon landings: India or China? List each country's successful lunar landing missions and their dates.",
+  "difficulty": "hard",
+  "introduces": [
+    "CNSA",
+    "China lunar program"
+  ],
+  "reuses": [
+    "ISRO",
+    "Chandrayaan-3"
+  ],
+  "status": "success",
+  "analyst": {
+    "question": "Which country has completed more successful Moon landings: India or China? List each country's successful lunar landing missions and their dates.",
+    "plan": "- Find specific facts on the number of successful Moon landing missions by both India and China.\n- Use search queries such as \"India lunar missions,\" \"China lunar missions,\" and \"successful Moon landings by country.\"\n- Cross-check claims by comparing data from NASA, ISRO, CNSA official websites, and reputable space exploration news sources.",
+    "claims": [
+      {
+        "text": "### China's Plan for a Crewed Moon Mission by 2030: Key Steps and Milestones China is making significant strides towards landing its astronauts on the moon, aiming to achieve this goal by 2030.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "This ambitious plan involves several key steps and milestones that are crucial for ensuring the success of the mission.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "#### Key Components of China's Lunar Mission Plan: 1.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "Long March-10 Carrier Rocket**: The Long March-10 is a powerful new rocket designed specifically for heavy-lift missions, including crewed lunar landings.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "A static fire test was conducted at the Wenchang Spacecraft Launch Site in Hainan Province on August 15, 2025, marking an important step towards its readiness.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "2.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "Mengzhou Spacecraft and Lanyue (Moon) Lander**: These spacecraft are being developed to transport astronauts from Earth orbit to the lunar surface.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "Preparations for their maiden flights are underway, with the Chang'e-7 mission scheduled for launch in the second half of 2025.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "3.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "Chang'e-7 Lunar Probe**: This robotic mission will include orbiting, landing, roving, and a lunar hopper to study the environment and resources of the lunar south pole.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "It also aims to facilitate international cooperation, showcasing China's commitment to global space exploration efforts.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "4.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "Space Station Missions**: The Tiangong space station has been operating steadily in low-Earth orbit for nearly four years.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "This station serves as a crucial platform for testing and verifying key technologies needed for crewed lunar landings, including the development of a reusable crewed transportation system.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "5.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "Selection and Training of Astronauts**: China is preparing a three-member crew for its first crewed moon landing mission in 2030.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "The astronauts are likely to be selected from the cadre of space travelers who have already carried out missions on the Tiangong space station.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "Extensive training programs will ensure that these astronauts are well-prepared for the challenges of lunar exploration.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "6.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "Technical Verification Flights**: Key technical verification flights using the Long March-10 carrier rocket and the Mengzhou spacecraft and Lanyue lander are essential to improve the safety, reliability, and technical maturity of systems intended for future moon landings.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "#### Why It Matters: China's progress towards a crewed lunar mission represents a significant milestone in its space program.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "This achievement not only enhances China's technological capabilities but also solidifies its position as a global leader in space exploration.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "The success of this mission could have far-reaching implications, including advancements in scientific research, international cooperation, and the potential for establishing long-term lunar bases.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "#### Conclusion: China is on track to send astronauts to the moon by 2030, with several key missions and technological developments underway.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "This ambitious plan underscores China's commitment to pushing the boundaries of human space exploration and its desire to play a leading role in future space endeavors.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "As the world watches closely, the success or failure of this mission will undoubtedly shape the landscape of international space cooperation for years to come.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "For more updates on China's space program and other exciting developments in space exploration, stay tuned to The Conversation() and Space.com().",
+        "citation": "https://theconversation.com/",
+        "confidence": "medium",
+        "from_memory": false
+      }
+    ],
+    "summary": "### China's Plan for a Crewed Moon Mission by 2030: Key Steps and Milestones\n\nChina is making significant strides towards landing its astronauts on the moon, aiming to achieve this goal by 2030. This ambitious plan involves several key steps and milestones that are crucial for ensuring the success of the mission.\n\n#### Key Components of China's Lunar Mission Plan:\n\n1. **Long March-10 Carrier Rocket**: The Long March-10 is a powerful new rocket designed specifically for heavy-lift missions, including crewed lunar landings. A static fire test was conducted at the Wenchang Spacecraft Launch Site in Hainan Province on August 15, 2025, marking an important step towards its readiness.\n\n2. **Mengzhou Spacecraft and Lanyue (Moon) Lander**: These spacecraft are being developed to transport astronauts from Earth orbit to the lunar surface. Preparations for their maiden flights are underway, with the Chang'e-7 mission scheduled for launch in the second half of 2025.\n\n3. **Chang'e-7 Lunar Probe**: This robotic mission will include orbiting, landing, roving, and a lunar hopper to study the environment and resources of the lunar south pole. It also aims to facilitate international cooperation, showcasing China's commitment to global space exploration efforts.\n\n4. **Space Station Missions**: The Tiangong space station has been operating steadily in low-Earth orbit for nearly four years. This station serves as a crucial platform for testing and verifying key technologies needed for crewed lunar landings, including the development of a reusable crewed transportation system.\n\n5. **Selection and Training of Astronauts**: China is preparing a three-member crew for its first crewed moon landing mission in 2030. The astronauts are likely to be selected from the cadre of space travelers who have already carried out missions on the Tiangong space station. Extensive training programs will ensure that these astronauts are well-prepared for the challenges of lunar exploration.\n\n6. **Technical Verification Flights**: Key technical verification flights using the Long March-10 carrier rocket and the Mengzhou spacecraft and Lanyue lander are essential to improve the safety, reliability, and technical maturity of systems intended for future moon landings.\n\n#### Why It Matters:\n\nChina's progress towards a crewed lunar mission represents a significant milestone in its space program. This achievement not only enhances China's technological capabilities but also solidifies its position as a global leader in space exploration. The success of this mission could have far-reaching implications, including advancements in scientific research, international cooperation, and the potential for establishing long-term lunar bases.\n\n#### Conclusion:\n\nChina is on track to send astronauts to the moon by 2030, with several key missions and technological developments underway. This ambitious plan underscores China's commitment to pushing the boundaries of human space exploration and its desire to play a leading role in future space endeavors. As the world watches closely, the success or failure of this mission will undoubtedly shape the landscape of international space cooperation for years to come.\n\nFor more updates on China's space program and other exciting developments in space exploration, stay tuned to [The Conversation](https://theconversation.com/) and [Space.com](https://www.space.com/).",
+    "sources_used": [
+      "https://theconversation.com/"
+    ],
+    "tool_trace": [
+      {
+        "round": 0,
+        "event": "model_fallback",
+        "from_model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "to_model": "google/gemma-4-31b-it:free",
+        "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3Jl6aKLIaiC4dg8s3fhdvCpIhBu'}",
+        "timestamp": 2.1556479930877686
+      },
+      {
+        "round": 0,
+        "event": "ollama_fallback",
+        "from_model": "google/gemma-4-31b-it:free",
+        "to_model": "qwen2.5:7b",
+        "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3Jl6aKLIaiC4dg8s3fhdvCpIhBu'}",
+        "timestamp": 3.5653626918792725
+      },
+      {
+        "round": 0,
+        "event": "plan",
+        "model": "qwen2.5:7b",
+        "plan": "- Find specific facts on the number of successful Moon landing missions by both India and China.\n- Use search queries such as \"India lunar missions,\" \"China lunar missions,\" and \"successful Moon landings by country.\"\n- Cross-check claims by comparing data from NASA, ISRO, CNSA official websites, and reputable space exploration news sources.",
+        "timestamp": 18.464972257614136
+      },
+      {
+        "round": 1,
+        "tool": "web_search",
+        "arguments": {
+          "query": "India lunar missions",
+          "max_results": 5
+        },
+        "model": "qwen2.5:7b",
+        "timestamp": 37.49331474304199,
+        "result_preview": "Title: Chandrayaan Mission Hub \u2014 India's Moon Missions | chandrayaan.com\nURL: https://chandrayaan.com\nSnippet: CHANDRAYAANINDIA\u2019S MOON MISSIONS\n\nIndia's Lunar Exploration Programme\n\n# India's Journey to the Moon\n\nFrom discovering water on the Moon in 2008 to becoming the first nation to land near the lunar south pole in 2023 \u2014 and now preparing to bring Moon samples back to Earth. Chandrayaan (Sanskrit: \"Moon Craft\") is ISRO's ongoing series of lunar missions.\n\nExplore Missions Latest News \ud83d\ude80 Build Your Own Mission\n\n2008First mission launched\n\n1stTo find water on the Moon\n\n4thNation to soft-land on the Moon\n\n1stLanding near lunar south pole\n\n2Missions in development\n\n### \ud83c\udf19 The Moon right now\n\nWaxing Gibbous70% illuminated\u2248 403987 km away\ud83c\udf15 Full moon in 5 days\n\n### \ud83d\udcc5 On this day in space history\n\nProgramme Timeline\n\n## Two decades of lunar exploration\n\nTap any milestone to expand it.\n\n15 August 2003 [...] September 2024\n\n### Chandrayaan-4 approved In Development\n\nThe Union Cabinet approve"
+      },
+      {
+        "round": 1,
+        "tool": "web_search",
+        "arguments": {
+          "query": "China lunar missions",
+          "max_results": 5
+        },
+        "model": "qwen2.5:7b",
+        "timestamp": 42.14344048500061,
+        "result_preview": "Title: Chinese Moon Missions | EarthDate\nURL: http://www.earthdate.org/episodes/chinese-moon-missions\nSnippet: ## Background\n\nSynopsis: China\u2019s Chang\u2019e lunar missions have pushed the boundaries of space exploration, from landing on the Moon\u2019s far side to returning samples that are reshaping our understanding of lunar history. Overcoming extreme technological challenges, these missions have uncovered new insights into the Moon\u2019s hidden past. The U.S. and China are both gearing up for crewed lunar landings, laying the groundwork for humanity\u2019s future on the Moon and beyond. [...] The Chinese first had to build and launch a radio relay satellite, a huge dish orbiting 40,000 miles beyond the moon, that could bounce signals from Earth.\n\nWith this in place, they launched Chang\u2019e 4, which became the first spacecraft ever to land on the far side of the moon, in 2019.\n\nThe Chinese then launched a more robust Chang\u2019e 6, which contained a large rover.\n\nIn 2024, it successfully explored the far si"
+      },
+      {
+        "round": 2,
+        "event": "final_answer",
+        "model": "qwen2.5:7b",
+        "timestamp": 320.89723229408264
+      }
+    ],
+    "cost": {
+      "input_tokens": 2878,
+      "output_tokens": 801,
+      "model": "qwen2.5:7b",
+      "cost_usd": 0.0
+    }
+  },
+  "analyst_model": "qwen2.5:7b",
+  "audit": {
+    "analyst_question": "Which country has completed more successful Moon landings: India or China? List each country's successful lunar landing missions and their dates.",
+    "verdicts": [
+      {
+        "claim": {
+          "text": "### China's Plan for a Crewed Moon Mission by 2030: Key Steps and Milestones China is making significant strides towards landing its astronauts on the moon, aiming to achieve this goal by 2030.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "This ambitious plan involves several key steps and milestones that are crucial for ensuring the success of the mission.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "#### Key Components of China's Lunar Mission Plan: 1.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "Long March-10 Carrier Rocket**: The Long March-10 is a powerful new rocket designed specifically for heavy-lift missions, including crewed lunar landings.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "A static fire test was conducted at the Wenchang Spacecraft Launch Site in Hainan Province on August 15, 2025, marking an important step towards its readiness.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "2.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "Mengzhou Spacecraft and Lanyue (Moon) Lander**: These spacecraft are being developed to transport astronauts from Earth orbit to the lunar surface.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "Preparations for their maiden flights are underway, with the Chang'e-7 mission scheduled for launch in the second half of 2025.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "3.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "Chang'e-7 Lunar Probe**: This robotic mission will include orbiting, landing, roving, and a lunar hopper to study the environment and resources of the lunar south pole.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "It also aims to facilitate international cooperation, showcasing China's commitment to global space exploration efforts.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "4.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "Space Station Missions**: The Tiangong space station has been operating steadily in low-Earth orbit for nearly four years.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "This station serves as a crucial platform for testing and verifying key technologies needed for crewed lunar landings, including the development of a reusable crewed transportation system.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "5.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "Selection and Training of Astronauts**: China is preparing a three-member crew for its first crewed moon landing mission in 2030.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "The astronauts are likely to be selected from the cadre of space travelers who have already carried out missions on the Tiangong space station.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "Extensive training programs will ensure that these astronauts are well-prepared for the challenges of lunar exploration.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "6.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "Technical Verification Flights**: Key technical verification flights using the Long March-10 carrier rocket and the Mengzhou spacecraft and Lanyue lander are essential to improve the safety, reliability, and technical maturity of systems intended for future moon landings.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "#### Why It Matters: China's progress towards a crewed lunar mission represents a significant milestone in its space program.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "This achievement not only enhances China's technological capabilities but also solidifies its position as a global leader in space exploration.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "The success of this mission could have far-reaching implications, including advancements in scientific research, international cooperation, and the potential for establishing long-term lunar bases.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "#### Conclusion: China is on track to send astronauts to the moon by 2030, with several key missions and technological developments underway.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "This ambitious plan underscores China's commitment to pushing the boundaries of human space exploration and its desire to play a leading role in future space endeavors.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "As the world watches closely, the success or failure of this mission will undoubtedly shape the landscape of international space cooperation for years to come.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "For more updates on China's space program and other exciting developments in space exploration, stay tuned to The Conversation() and Space.com().",
+          "citation": "https://theconversation.com/",
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "unsupported",
+        "evidence": "The source page does not mention China's space program or any space exploration developments.",
+        "source_excerpt": "",
+        "source_url": "https://theconversation.com/"
+      }
+    ],
+    "summary": "27 claim(s) audited. 1 unsupported. 26 had no citation. Reliability: LOW.",
+    "limitations": [],
+    "cost": {
+      "input_tokens": 519,
+      "output_tokens": 34,
+      "model": "qwen2.5:7b",
+      "cost_usd": 0.0
+    }
+  },
+  "auditor_model": "qwen2.5:7b",
+  "metrics": {
+    "analyst_input_tokens": 2878,
+    "analyst_output_tokens": 801,
+    "analyst_cost_inr": 0.0,
+    "analyst_latency_s": 320.9,
+    "analyst_model": "qwen2.5:7b",
+    "auditor_input_tokens": 519,
+    "auditor_output_tokens": 34,
+    "auditor_cost_inr": 0.0,
+    "auditor_latency_s": 42.6,
+    "auditor_model": "qwen2.5:7b",
+    "total_latency_s": 363.5,
+    "total_cost_inr": 0.0,
+    "verdicts": {
+      "supported": 0,
+      "unsupported": 1,
+      "contradicted": 0,
+      "no_citation": 26,
+      "source_error": 0
+    },
+    "memory_entities_before": 2,
+    "memory_entities_after": 3,
+    "memory_used": false
+  },
+  "memory_state": {
+    "titan_company_limited": {
+      "entity_type": "unknown",
+      "fact_count": 1,
+      "related": []
+    },
+    "earnings_call_transcript": {
+      "entity_type": "unknown",
+      "fact_count": 1,
+      "related": [
+        "stock_analysis"
+      ]
+    },
+    "the_conversation": {
+      "entity_type": "unknown",
+      "fact_count": 1,
+      "related": []
+    }
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "total_questions": 8,
+  "succeeded": 8,
+  "failed": 0,
+  "total_analyst_tokens": {
+    "input": 23115,
+    "output": 5748
+  },
+  "total_auditor_tokens": {
+    "input": 519,
+    "output": 34
+  },
+  "total_cost_inr": 0.0,
+  "total_latency_s": 2599.0,
+  "memory_entities_final": 3,
+  "memory_reuse_questions": [
+    7
+  ],
+  "per_question": [
+    {
+      "q": 1,
+      "status": "success",
+      "difficulty": "easy",
+      "analyst_tokens": 3086,
+      "auditor_tokens": 0,
+      "cost_inr": 0.0,
+      "latency_s": 205.6,
+      "verdicts": {
+        "supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "no_citation": 5,
+        "source_error": 0
+      },
+      "memory_used": false,
+      "analyst_model": "qwen2.5:7b",
+      "auditor_model": "none"
+    },
+    {
+      "q": 2,
+      "status": "success",
+      "difficulty": "easy-medium",
+      "analyst_tokens": 3207,
+      "auditor_tokens": 0,
+      "cost_inr": 0.0,
+      "latency_s": 227.4,
+      "verdicts": {
+        "supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "no_citation": 11,
+        "source_error": 0
+      },
+      "memory_used": false,
+      "analyst_model": "qwen2.5:7b",
+      "auditor_model": "none"
+    },
+    {
+      "q": 3,
+      "status": "success",
+      "difficulty": "medium",
+      "analyst_tokens": 3604,
+      "auditor_tokens": 0,
+      "cost_inr": 0.0,
+      "latency_s": 371.1,
+      "verdicts": {
+        "supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "no_citation": 29,
+        "source_error": 0
+      },
+      "memory_used": false,
+      "analyst_model": "qwen2.5:7b",
+      "auditor_model": "none"
+    },
+    {
+      "q": 4,
+      "status": "success",
+      "difficulty": "medium",
+      "analyst_tokens": 3611,
+      "auditor_tokens": 0,
+      "cost_inr": 0.0,
+      "latency_s": 354.5,
+      "verdicts": {
+        "supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "no_citation": 19,
+        "source_error": 1
+      },
+      "memory_used": false,
+      "analyst_model": "qwen2.5:7b",
+      "auditor_model": "none"
+    },
+    {
+      "q": 5,
+      "status": "success",
+      "difficulty": "medium-hard",
+      "analyst_tokens": 3932,
+      "auditor_tokens": 0,
+      "cost_inr": 0.0,
+      "latency_s": 408.2,
+      "verdicts": {
+        "supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "no_citation": 21,
+        "source_error": 2
+      },
+      "memory_used": false,
+      "analyst_model": "qwen2.5:7b",
+      "auditor_model": "none"
+    },
+    {
+      "q": 6,
+      "status": "success",
+      "difficulty": "medium-hard",
+      "analyst_tokens": 3675,
+      "auditor_tokens": 0,
+      "cost_inr": 0.0,
+      "latency_s": 304.8,
+      "verdicts": {
+        "supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "no_citation": 14,
+        "source_error": 0
+      },
+      "memory_used": false,
+      "analyst_model": "qwen2.5:7b",
+      "auditor_model": "none"
+    },
+    {
+      "q": 7,
+      "status": "success",
+      "difficulty": "hard",
+      "analyst_tokens": 4069,
+      "auditor_tokens": 0,
+      "cost_inr": 0.0,
+      "latency_s": 363.9,
+      "verdicts": {
+        "supported": 0,
+        "unsupported": 0,
+        "contradicted": 0,
+        "no_citation": 35,
+        "source_error": 0
+      },
+      "memory_used": true,
+      "analyst_model": "qwen2.5:7b",
+      "auditor_model": "none"
+    },
+    {
+      "q": 8,
+      "status": "success",
+      "difficulty": "hard",
+      "analyst_tokens": 3679,
+      "auditor_tokens": 553,
+      "cost_inr": 0.0,
+      "latency_s": 363.5,
+      "verdicts": {
+        "supported": 0,
+        "unsupported": 1,
+        "contradicted": 0,
+        "no_citation": 26,
+        "source_error": 0
+      },
+      "memory_used": false,
+      "analyst_model": "qwen2.5:7b",
+      "auditor_model": "qwen2.5:7b"
+    }
+  ]
+}

@@ -10,6 +10,7 @@ from models import Claim, CostRecord, AnalystAnswer, Fact
 from memory import EntityMemory
 from analyst import (
     _extract_entities, _store_entities, _execute_tool_call, run_analyst,
+    _is_substantive, _is_degraded_answer,
 )
 
 
@@ -337,6 +338,106 @@ class TestEmptyMemory(unittest.TestCase):
         # Trace should not have memory_recall event
         events = [e.get("event") for e in answer.tool_trace]
         self.assertNotIn("memory_recall", events)
+
+
+class TestIsSubstantive(unittest.TestCase):
+
+    def test_rejects_lone_numbers(self):
+        self.assertFalse(_is_substantive("1."))
+        self.assertFalse(_is_substantive("2."))
+        self.assertFalse(_is_substantive("3."))
+
+    def test_rejects_short_fragments(self):
+        self.assertFalse(_is_substantive("Yes."))
+        self.assertFalse(_is_substantive("## ---"))
+        self.assertFalse(_is_substantive("* *"))
+
+    def test_rejects_number_sequences(self):
+        self.assertFalse(_is_substantive("12, 34, 56"))
+
+    def test_accepts_real_claims(self):
+        self.assertTrue(_is_substantive("Ajoy Chawla is the MD of Titan Company."))
+        self.assertTrue(_is_substantive("Revenue grew 33% in FY 2024."))
+
+    def test_accepts_short_but_real(self):
+        self.assertTrue(_is_substantive("The CEO resigned in March 2024."))
+
+    def test_rejects_markdown_heading_only(self):
+        self.assertFalse(_is_substantive("### ---"))
+        self.assertFalse(_is_substantive("**"))
+
+
+class TestIsDegradedAnswer(unittest.TestCase):
+
+    def test_detects_base64_nonsense(self):
+        text = ("It appears that the response is a string of characters. "
+                "Try a Base64 decode to interpret it.")
+        result = _is_degraded_answer(text, "What is revenue?")
+        self.assertIsNotNone(result)
+        self.assertIn("base64 decode", result)
+
+    def test_detects_too_short(self):
+        result = _is_degraded_answer("Yes.", "What is revenue?")
+        self.assertIsNotNone(result)
+        self.assertIn("too short", result)
+
+    def test_accepts_normal_answer(self):
+        text = ("Titan Company reported total revenue of Rs 55,335 crore "
+                "in FY 2024-25, up from Rs 51,084 crore in FY 2023-24. "
+                "This represents growth of approximately 8.3 percent.")
+        result = _is_degraded_answer(text, "What was Titan's revenue?")
+        self.assertIsNone(result)
+
+    def test_accepts_i_dont_know(self):
+        text = ("I could not find reliable information about the exact "
+                "date when the CEO took over. Multiple sources gave "
+                "conflicting dates and I cannot verify which is correct.")
+        result = _is_degraded_answer(text, "When did the CEO start?")
+        self.assertIsNone(result)
+
+
+class TestDegradedAnswerSkipsMemoryStorage(unittest.TestCase):
+
+    def setUp(self):
+        self.tmpfile = tempfile.NamedTemporaryFile(
+            suffix=".json", delete=False, mode="w",
+        )
+        self.tmpfile.write("{}")
+        self.tmpfile.close()
+        self.memory = EntityMemory(path=self.tmpfile.name)
+
+    def tearDown(self):
+        os.unlink(self.tmpfile.name)
+
+    @patch("analyst._call_llm")
+    def test_degraded_answer_not_stored_in_memory(self, mock_llm):
+        plan_response = MagicMock()
+        plan_response.choices = [MagicMock()]
+        plan_response.choices[0].message.content = "- Search"
+        plan_response.usage = MagicMock(prompt_tokens=100, completion_tokens=10)
+
+        answer_response = MagicMock()
+        answer_response.choices = [MagicMock()]
+        answer_response.choices[0].message.content = (
+            "It appears that the response is a string of characters. "
+            "Try a Base64 decode. [https://example.com/data]\n\n"
+            "SOURCES:\n- https://example.com/data: encoded content"
+        )
+        answer_response.choices[0].message.tool_calls = None
+        answer_response.usage = MagicMock(prompt_tokens=200, completion_tokens=50)
+
+        mock_llm.side_effect = [
+            (plan_response, "test-model", MagicMock()),
+            (answer_response, "test-model", MagicMock()),
+        ]
+
+        answer = run_analyst(
+            "What was Titan Company's revenue?", memory=self.memory,
+        )
+        self.assertEqual(len(self.memory.entities), 0)
+
+        events = [e.get("event") for e in answer.tool_trace]
+        self.assertIn("degraded_answer", events)
 
 
 if __name__ == "__main__":

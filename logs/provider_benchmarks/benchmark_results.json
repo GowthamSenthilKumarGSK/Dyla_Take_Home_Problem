@@ -1,0 +1,81 @@
+[
+  {
+    "label": "Groq llama-3.1-8b",
+    "model": "llama-3.1-8b-instant",
+    "status": "model_unavailable",
+    "available_models": [
+      "allam-2-7b",
+      "meta-llama/llama-prompt-guard-2-22m",
+      "meta-llama/llama-prompt-guard-2-86m",
+      "canopylabs/orpheus-arabic-saudi",
+      "openai/gpt-oss-20b",
+      "canopylabs/orpheus-v1-english",
+      "whisper-large-v3",
+      "qwen/qwen3.8-27b",
+      "openai/gpt-oss-safeguard-20b",
+      "openai/gpt-oss-120b",
+      "whisper-large-v3-turbo"
+    ],
+    "note": "Model retired from Groq free tier"
+  },
+  {
+    "label": "Groq qwen3.8-27b",
+    "model": "qwen/qwen3.8-27b",
+    "status": "failed_mid_research",
+    "error": "Error code: 413 - {'error': {'message': 'Request too large for model `qwen/qwen3.8-27b` in organization `org_01m39ayaheeresxrbear507ek8` service tier `on_demand` on input tokens per minute (ITPM): Limit 7000, Requested 20739, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+    "rounds_completed": 1,
+    "trace": [
+      {
+        "round": 0,
+        "event": "plan",
+        "plan": "*   **Specific Facts Needed:** Identify the full name of the current Managing Director (MD) of Titan Company Ltd., the specific date or month they assumed the role, and the name of their predecessor to confirm the transition timeline.\n*   **Search Queries:** Use targeted queries such as \"Titan Company current Managing Director 2024,\" \"Titan Company MD appointment press release,\" and \"Titan Company leadership change [Year].\"\n*   **Cross-Checking Method:** Verify the appointment date and individual by cross-referencing official Titan Company press releases or investor presentations with reputable financial news sources (e.g., Economic Times, Reuters, Bloomberg) and the company's latest annual report or board composition page.",
+        "latency_s": 0.7795512676239014
+      },
+      {
+        "round": 1,
+        "tool": "web_search",
+        "arguments": {
+          "max_results": 8,
+          "query": "Titan Company current Managing Director 2024"
+        },
+        "latency_s": 0.4786701202392578,
+        "result_len": 33400
+      },
+      {
+        "round": 1,
+        "tool": "web_search",
+        "arguments": {
+          "max_results": 8,
+          "query": "Titan Company MD appointment press release"
+        },
+        "latency_s": 0.4786701202392578,
+        "result_len": 36012
+      },
+      {
+        "round": 2,
+        "event": "error",
+        "error": "Error code: 413 - {'error': {'message': 'Request too large for model `qwen/qwen3.8-27b` in organization `org_01m39ayaheeresxrbear507ek8` service tier `on_demand` on input tokens per minute (ITPM): Limit 7000, Requested 20739, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+      }
+    ],
+    "tokens": {
+      "input_tokens": 970,
+      "output_tokens": 234,
+      "model": "qwen/qwen3.8-27b",
+      "cost_usd": 0.0
+    },
+    "latency_s": 13.958765506744385
+  },
+  {
+    "label": "Gemini 2.5 Flash",
+    "model": "gemini-2.5-flash",
+    "status": "failed",
+    "error": "Error code: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.6-flash for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/get-started).', 'status': 'NOT_FOUND'}}]",
+    "stage": "planning"
+  },
+  {
+    "label": "Gemini Deep Research",
+    "model": "deep-research-preview-04-2026",
+    "status": "not_available_via_openai",
+    "error": "Error code: 403 - [{'error': {'code': 403, 'message': 'Your project has been denied access. Please contact support.', 'status': 'PERMISSION_DENIED'}}]"
+  }
+]

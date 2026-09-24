@@ -1,0 +1,55 @@
+# AI Development Log
+
+This project was developed with AI assistance (Claude Code). This log documents the development process.
+
+## Development Timeline
+
+### Phase 1: Foundation
+- Set up project structure, config, models, tools (web_search, fetch_page)
+- Implemented the Analyst agent with OpenAI-compatible API, system prompt, planning step, tool-calling loop, answer parser
+- Added three-tier provider fallback: Nemotron -> Gemma -> Ollama qwen2.5:7b
+- Fixed Python 3 exception scoping bug in `_call_llm()` (except-clause variables deleted on block exit)
+
+### Phase 2: Auditor
+- Designed Auditor input/output contract (AnalystAnswer -> AuditReport)
+- Implemented independent source verification via fetch_page
+- Added Literal verdict types: supported, unsupported, contradicted, no_citation, source_error
+- Fixed set-ordering flaky test (changed cited_urls from set to list with seen-set dedup)
+- Fixed cost.model reporting when Auditor makes zero LLM calls
+
+### Phase 3: Memory Integration
+- Implemented EntityMemory with JSON-backed entity store
+- Added pre-plan memory recall and post-answer entity storage
+- Added memory_lookup tool for the Analyst's research loop
+- Passed memory explicitly (not module-level) for safe repeated/parallel runs
+- Added from_memory flag on claims
+
+### Phase 4: Runner and Questions
+- Designed 8 research questions with increasing difficulty and entity reuse pattern
+- Built evaluation runner with per-question error handling
+- Added --fresh-memory and --preserve-memory CLI options
+- Verified all 50 tests pass
+
+### Phase 5: Provider Benchmarking
+- Benchmarked Groq (llama-3.1-8b-instant retired, qwen3.8-27b and gpt-oss-120b hit TPM limits)
+- Tested Gemini API (project-level access denied on all generation endpoints)
+- Conclusion: OpenRouter free tier remains the only viable cloud option
+
+### Phase 6: Audit and Fixes
+- Ran full 8-question evaluation (fell back to qwen2.5:7b due to exhausted OpenRouter quota)
+- Identified cascading model-quality failure: no citations -> no entity storage -> no memory reuse
+- Fixed claim parser: filter garbage fragments (lone numbers, short strings, punctuation)
+- Added degraded-answer detection to prevent nonsense from entering memory
+- Parallelized Auditor source fetches using ThreadPoolExecutor
+- Created README.md and DECISIONS.md
+- Final test count: 61 tests, all passing
+
+## Key AI-Assisted Decisions
+- AI suggested the three-tier fallback architecture after testing provider availability
+- AI identified the Python 3 exception scoping bug (variables deleted on except-block exit)
+- AI designed the entity extraction regex approach as a lightweight alternative to NLP libraries
+- AI proposed the cascading-failure diagnosis: model quality -> citation quality -> memory quality
+- AI benchmarked alternative providers (Groq, Gemini) to validate the architecture choice
+
+## Runtime Traces
+The `q1_trace.json` through `q8_trace.json` files contain the Analyst and Auditor runtime traces from the 8-question evaluation. These are the agent's research traces, not development logs.
