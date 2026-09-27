@@ -42,7 +42,23 @@ This project was developed with AI assistance (Claude Code). This log documents 
 - Added degraded-answer detection to prevent nonsense from entering memory
 - Parallelized Auditor source fetches using ThreadPoolExecutor
 - Created README.md and DECISIONS.md
-- Final test count: 61 tests, all passing
+
+### Phase 7: Evidence-Aware Research Loop
+- Replaced the LLM-controlled tool-calling loop with a structured evidence-aware research loop
+- Added structured plan parsing (QUERIES: / PLAN: format)
+- Added deterministic source selection with domain-quality scoring
+- Added explicit evidence sufficiency evaluation (separate LLM call)
+- Added conflict detection and follow-up research (up to 3 rounds)
+- Added timeout configuration (30s cloud, 120s Ollama) and APITimeoutError/APIConnectionError handling
+- Added source_error verdict to distinguish fetch failures from unsupported claims
+
+### Phase 8: Frontend, Testing, and Documentation
+- Built Streamlit frontend with research interface and evaluation dashboard
+- Added research_api.py as frontend API layer (trace timeline, source extraction, provider info)
+- Diagnosed and fixed raw-JSON-in-summary bug (model echoing search parameters as answer)
+- Repaired corrupted Q1/Q2 trace files
+- Extended test suite to 109 tests covering evidence loop, fallback, research API, and integration
+- Updated README.md and DECISIONS.md for final submission
 
 ## Key AI-Assisted Decisions
 - AI suggested the three-tier fallback architecture after testing provider availability

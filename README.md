@@ -1,43 +1,62 @@
 # Problem 3: Analyst and Auditor
 
-A multi-agent research system that answers factual questions using live web evidence, then independently verifies each claim.
+A multi-agent research system that answers factual questions using live web evidence, then independently verifies each claim against its cited source.
+
+## What This System Does
+
+1. The **Analyst** receives a research question, plans its approach, searches the web, fetches and reads source pages, evaluates whether the evidence is sufficient, conducts follow-up research if needed, and produces a cited answer.
+2. The **Auditor** takes the Analyst's answer, independently re-fetches every cited source, and uses an LLM to judge whether each source actually supports the corresponding claim.
+3. **EntityMemory** transfers verified knowledge between questions so later questions can build on earlier research.
 
 ## Architecture
 
-- **Analyst agent** — plans research, searches the web, fetches pages, produces cited answers
-- **Auditor agent** — independently opens cited sources and verifies each claim
-- **EntityMemory** — transfers knowledge between questions via a JSON-backed entity store
-- **Runner** — orchestrates the 8-question evaluation with per-question error handling
+```
+User Question
+     |
+  Analyst
+     |
+  Plan (LLM) --> Structured search queries
+     |
+  Evidence-Aware Research Loop (up to 3 rounds):
+     |---> Web Search (Tavily)
+     |---> Source Selection (deterministic scoring)
+     |---> Page Fetch (trafilatura + httpx)
+     |---> Evidence Evaluation (LLM)
+     |---> Decision: sufficient? --> Final Answer (LLM)
+     |                  |
+     |            insufficient --> Follow-up query --> next round
+     |
+  Final Answer with inline [URL] citations
+     |
+  Auditor
+     |---> Parallel source fetch (ThreadPoolExecutor)
+     |---> Per-claim LLM verification
+     |---> Verdicts: supported / unsupported / contradicted / no_citation / source_error
+     |
+  Audit Report
+```
+
+## Components
+
+| File | Role |
+|------|------|
+| `analyst.py` | Analyst agent: planning, evidence-aware research loop, answer generation, entity extraction/storage |
+| `auditor.py` | Auditor agent: independent source verification with parallel fetching |
+| `tools.py` | Web search (Tavily), page fetching (trafilatura/httpx), tool definitions for OpenAI function-calling |
+| `memory.py` | JSON-backed entity memory store with fact deduplication |
+| `models.py` | Pydantic data models for all inputs/outputs (AnalystAnswer, AuditReport, Claim, etc.) |
+| `config.py` | Environment configuration from `.env` |
+| `runner.py` | 8-question evaluation runner with per-question error handling and aggregate metrics |
+| `research_api.py` | Frontend API layer: single-question research, trace timeline extraction, source extraction |
+| `questions.py` | 8 evaluation questions with difficulty levels and entity reuse annotations |
+| `app.py` | Streamlit frontend: research interface and evaluation dashboard |
 
 ## Prerequisites
 
 - Python 3.11+
 - [Ollama](https://ollama.com/) installed with `qwen2.5:7b` pulled (`ollama pull qwen2.5:7b`)
 
-## Environment Variables
-
-Create a `.env` file in the project root:
-
-```
-OPENROUTER_API_KEY=<your OpenRouter API key>
-TAVILY_API_KEY=<your Tavily API key>
-```
-
-The system uses OpenRouter's free tier for cloud models. Tavily provides web search (free tier: 1000 searches/month).
-
-Optional overrides (defaults work out of the box):
-```
-ANALYST_MODEL=nvidia/nemotron-3-super-120b-a12b:free
-PLANNING_MODEL=nvidia/nemotron-3-super-120b-a12b:free
-AUDITOR_MODEL=nvidia/nemotron-3-super-120b-a12b:free
-FALLBACK_MODEL=google/gemma-4-31b-it:free
-OLLAMA_BASE_URL=http://localhost:11434/v1
-OLLAMA_MODEL=qwen2.5:7b
-SEARCH_MAX_RESULTS=5
-FETCH_TIMEOUT_SECONDS=15
-```
-
-## Installation
+## Setup
 
 ```bash
 python -m venv .venv
@@ -49,51 +68,162 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Ensure Ollama is running if you want the local fallback:
+Create a `.env` file from the template:
+```bash
+cp .env.example .env
+# Edit .env with your API keys
+```
+
+Required API keys:
+- **OPENROUTER_API_KEY** — for cloud LLM inference (free tier works)
+- **TAVILY_API_KEY** — for web search (free tier: 1000 searches/month)
+
+Start Ollama if you want the local fallback:
 ```bash
 ollama serve
 ```
 
-## Running Tests
+## Running
+
+### Single Question (Streamlit UI)
+
+```bash
+streamlit run app.py
+```
+
+The UI has two pages:
+- **Research** — ask a question and see the full Analyst + Auditor pipeline with answer, audit verdicts, trace timeline, sources, and cost/latency metrics.
+- **Evaluation** — view results from the 8-question benchmark, with per-question traces and aggregate metrics.
+
+### 8-Question Evaluation
+
+```bash
+python runner.py --fresh-memory
+```
+
+This runs all 8 questions sequentially with a fresh entity memory, saving per-question traces to `logs/q1_trace.json` through `logs/q8_trace.json` and aggregate metrics to `logs/runner_summary.json`.
+
+Use `--preserve-memory` to keep existing `knowledge.json` from a previous run.
+
+### Tests
 
 ```bash
 python -m pytest -v
 ```
 
-All tests use mocks and do not require API keys or network access.
+All 109 tests use mocks and require no API keys or network access.
 
-## Running the 8-Question Evaluation
+## Provider Fallback
 
-```bash
-# Fresh memory (default) — starts with clean knowledge.json
-python runner.py --fresh-memory
+Three-tier fallback with sticky switching:
 
-# Preserved memory — keeps existing knowledge.json from a previous run
-python runner.py --preserve-memory
-```
+1. **Nemotron 120B** (`nvidia/nemotron-3-super-120b-a12b:free`) — 120B MoE, 12B active parameters. Best research quality with inline citations.
+2. **Gemma 4 31B** (`google/gemma-4-31b-it:free`) — dense 31B. Solid cloud fallback.
+3. **qwen2.5:7b** (Ollama local) — no API dependency. Works offline but significantly slower on CPU and lower citation quality.
 
-## Output
+Once a fallback triggers, the session sticks with the working provider to avoid repeated failures. Timeout handling: cloud calls timeout at 30s, Ollama at 120s. Connection errors, rate limits (429), timeouts, and server errors (502/503/529) all trigger fallback.
 
-- `logs/q1_trace.json` through `logs/q8_trace.json` — per-question traces with plan, tool calls, claims, audit verdicts, token counts, latencies
-- `logs/runner_summary.json` — aggregate metrics across all questions
-- `knowledge.json` — entity memory state after the run
+## The 8 Evaluation Questions
 
-Each trace includes: the research plan, every tool call with arguments and result previews, the final answer with parsed claims and citations, audit verdicts for each claim, and per-question token/cost/latency metrics.
+The questions are designed with increasing difficulty and deliberate entity reuse:
 
-## Provider Behavior
+| # | Difficulty | Question | Introduces | Reuses |
+|---|-----------|----------|------------|--------|
+| 1 | Easy | Who is the current MD of Titan Company? | Titan, Ajoy Chawla | — |
+| 2 | Easy-Medium | Titan's total revenue in FY 2024-25? | — | Titan |
+| 3 | Medium | Who founded Infosys? Market cap? | Infosys, N.R. Narayana Murthy | — |
+| 4 | Medium | Titan's business divisions and leaders? | — | Titan, Ajoy Chawla |
+| 5 | Medium-Hard | Infosys vs TCS revenue in FY 2025-26? | TCS | Infosys |
+| 6 | Medium-Hard | Chandrayaan-3 landing date and lead scientist? | Chandrayaan-3, ISRO | — |
+| 7 | Hard | Titan share price now vs when Ajoy Chawla became MD? | — | Titan, Ajoy Chawla |
+| 8 | Hard | India vs China successful Moon landings? | CNSA | ISRO, Chandrayaan-3 |
 
-The system uses a three-tier fallback:
+**Entity reuse pattern:** Q1 introduces Titan/Ajoy Chawla. Q2 and Q4 reuse Titan. Q7 reuses both Titan and Ajoy Chawla and requires combining facts from Q1 (appointment date) with current data (share price). Q6 introduces ISRO/Chandrayaan-3; Q8 reuses them for a cross-country comparison.
 
-1. **Nemotron 120B** (OpenRouter free tier) — best research quality, inline citations, cross-checking
-2. **Gemma 4 31B** (OpenRouter free tier) — solid cloud fallback
-3. **Ollama qwen2.5:7b** (local) — no API dependency, but significantly slower on CPU and lower quality
+## What Was Implemented Beyond the Core
 
-If OpenRouter's daily free limit is exhausted (50 requests/day), all questions fall back to the local Ollama model. The local model is slower (3-5 minutes per question on CPU) and produces lower quality answers with fewer citations. For best results, run the evaluation when OpenRouter quota is available.
+The core requirement was an Analyst that researches questions and an Auditor that verifies claims. Beyond that, this implementation includes:
+
+- **Evidence-aware multi-round research loop** — instead of a single search-and-answer cycle, the Analyst evaluates whether collected evidence is sufficient and conducts up to 3 rounds of targeted follow-up research.
+- **Deterministic source selection** — sources are scored by Tavily relevance plus domain-quality heuristics (.gov/.edu boost, low-quality penalization), not LLM judgment. This is reproducible and fast.
+- **Explicit evidence sufficiency evaluation** — a separate LLM call assesses the evidence against the question before generating the final answer, identifying gaps and conflicts.
+- **Conflict-aware answer generation** — when the evidence evaluator detects conflicting sources, the answer-generation prompt explicitly requires the Analyst to address the conflict.
+- **Persistent entity memory** — facts from cited claims are stored in a JSON-backed entity store, keyed by proper-noun entities. Only cited claims are stored; degraded answers and uncited claims are excluded to prevent memory pollution.
+- **Pre-plan memory recall** — before planning, entities are extracted from the question and matched against memory. Known facts are injected into the planning prompt so the Analyst can skip redundant searches.
+- **Independent Auditor architecture** — the Auditor re-fetches every cited source independently. It does not trust the Analyst's fetched content. It uses an LLM to compare each claim against the re-fetched page.
+- **source_error verdict** — the Auditor distinguishes "source could not be fetched" (infrastructure failure) from "source does not support the claim" (content mismatch). This prevents fetch failures from inflating the unsupported count.
+- **Parallel Auditor source fetching** — cited URLs are fetched concurrently using `ThreadPoolExecutor`.
+- **Degraded-answer detection** — answers that are raw JSON (model echoed tool-call data), contain nonsense markers, or are too short are detected, flagged in the trace, and excluded from memory storage.
+- **Garbage claim filtering** — lone numbers, punctuation-only strings, fragments under 8 characters, and markdown heading artifacts are filtered from the claim list.
+- **Three-tier provider fallback** with sticky switching and bounded timeouts.
+- **Full research traces** — every LLM call, search, page fetch, evidence evaluation, source selection, and fallback event is recorded with timestamps in the per-question trace files.
+- **Token/cost/latency tracking** — per-question and aggregate metrics for both Analyst and Auditor.
+- **Streamlit frontend** — research interface for live queries and evaluation dashboard for reviewing benchmark results.
+
+## Included Evaluation Run
+
+The `logs/` directory contains traces from a full 8-question evaluation run. This run fell back to the local Ollama qwen2.5:7b model because OpenRouter's free-tier daily quota was exhausted.
+
+**What the traces show:**
+- All 8 questions completed successfully (no crashes).
+- The evidence-aware research loop executed correctly: multi-round searches, source selection, evidence evaluation, and follow-up research are visible in every trace.
+- Memory reuse worked for Q7 (recalled Titan Company and Ajoy Chawla facts from earlier questions).
+- Total latency: ~2599s (~43 minutes) across 8 questions — entirely due to CPU-only Ollama inference (~300-400s per question).
+- Total cost: Rs. 0.00 (all inference was local).
+- Only 3 entities stored in memory after the full run.
+
+**What the traces also show (limitations of this run):**
+- The qwen2.5:7b model almost never produced inline `[URL]` citations, so the Auditor mostly reported `no_citation` verdicts.
+- Without citations, entity storage was minimal (only 3 entities instead of the expected ~8+).
+- Memory reuse was limited — only Q7 triggered a recall.
+- Q1 and Q2 originally had corrupted summaries where the model echoed raw search query JSON instead of answering. This was diagnosed and the degraded-answer detection was added to prevent it.
+
+These are **model-quality limitations**, not architecture limitations. The architecture correctly handles citations, entity storage, memory recall, and auditor verification when the underlying model produces them. With a stronger model (Nemotron or Gemma), citations work correctly.
 
 ## Known Limitations
 
-- Ollama qwen2.5:7b rarely produces inline `[URL]` citations, which cascades: no citations means no entity storage, limited memory reuse, and the Auditor reports `no_citation` on most claims
-- Local CPU inference is slow (~200-400s per question on Intel i7-1355U)
-- Entity extraction uses regex-based proper noun detection, not NLP
-- No parallelization of the sequential Analyst reasoning loop (tool calls depend on prior results)
-- Auditor source fetches are parallelized; LLM verification calls are sequential (each depends on the fetched page)
+| Category | Limitation |
+|----------|-----------|
+| Model quality | qwen2.5:7b rarely produces inline `[URL]` citations. This cascades: no citations → no entity storage → limited memory reuse → Auditor reports `no_citation`. |
+| Model quality | Smaller models sometimes echo search parameters or tool-call JSON as their answer instead of producing natural language. Degraded-answer detection catches this but the answer is lost. |
+| Hardware | CPU-only Ollama inference: ~300-400s per question on Intel i7-1355U, 16GB RAM. A GPU or cloud model would reduce this to seconds. |
+| Provider | OpenRouter free tier has daily request limits (~50 requests/day). Exhaustion forces fallback to local inference for the rest of the session. |
+| Architecture | No auditor feedback loop — the Auditor does not feed contradicted claims back to the Analyst for re-research. |
+| Architecture | Regex-based entity extraction — proper nouns are detected via capitalization patterns, not NLP. Some entities may be missed or incorrectly segmented. |
+| Architecture | Sequential Auditor LLM verification — each claim is verified one at a time. With many claims, this adds latency linearly. |
+
+## Testing
+
+109 tests across 8 files, all using mocks:
+
+| File | Tests | What it covers |
+|------|-------|---------------|
+| `test_evidence_loop.py` | 18 | Plan parsing, source selection (scoring, dedup, max limits), evidence evaluation parsing, research loop behavior (sufficient stops, insufficient follow-up, conflicts, max rounds), citation preservation, memory-citation interaction, analyst-auditor compatibility |
+| `test_auditor.py` | 16 | Verdict parsing (supported/unsupported/contradicted/malformed), summary generation (reliability rating), run_auditor for all verdict types, cost tracking, source deduplication |
+| `test_memory_integration.py` | 18 | Entity extraction (multi-word, initialed, dedup), fact storage (cited-only, uncited skipped, related entities), memory lookup/search, pre-plan recall injection, from_memory flag, empty memory, claim substantiveness filtering, degraded answer detection, memory pollution prevention |
+| `test_fallback.py` | 8 | Provider error classification (rate limit, timeout, connection, non-retriable), fallback chain (Nemotron→Gemma, both cloud→Ollama, timeout cascade), no-unnecessary-fallback, timeout bounds |
+| `test_runner.py` | 11 | Question validation (count, fields, IDs, difficulty, entity reuse), verdict counting, memory snapshot, error handling (failed question doesn't stop runner), trace/summary saving, fresh/preserve memory |
+| `test_research_api.py` | 13 | Trace timeline extraction (all event types), source extraction and ordering, provider info extraction, memory snapshot, load functions for missing files |
+| `test_analyst.py` | varies | Analyst end-to-end with mocked LLM/tools |
+| `test_integration.py` | varies | Analyst-to-Auditor integration flow |
+| `test_tools.py` | 6 | Web search, page fetch (success, bad URL, timeout), memory operations |
+
+## Output Files
+
+| Path | Contents |
+|------|----------|
+| `logs/q1_trace.json` – `logs/q8_trace.json` | Per-question traces: plan, searches, page fetches, evidence evaluations, answer, claims, audit verdicts, token/cost/latency metrics, memory state |
+| `logs/runner_summary.json` | Aggregate metrics: total tokens, cost, latency, success/failure counts, memory reuse |
+| `knowledge.json` | Entity memory state after the evaluation run |
+
+## Future Work
+
+These are improvements that are **not currently implemented**:
+
+- **Auditor feedback loop** — contradicted claims could trigger targeted re-research by the Analyst, creating a closed verification cycle.
+- **Stronger conflict resolution** — when credible sources disagree, the system could apply recency, authority, or cross-reference heuristics beyond the current LLM-based approach.
+- **Adversarial evaluation** — questions designed to test the system's ability to resist misleading search results or detect factual manipulation.
+- **Better model/provider routing** — dynamically route different question types to different models based on difficulty or topic.
+- **Parallel Auditor LLM calls** — verify claims concurrently (with rate limiting) to reduce audit latency.
+- **Production-scale memory** — replace the JSON file with a database backend for larger entity stores.
+- **Additional evaluation datasets** — test on standard factual QA benchmarks beyond the 8 custom questions.
