@@ -95,7 +95,7 @@ def _is_provider_error(exc: Exception) -> bool:
     False for auth errors (401), bad requests (400), or application errors."""
     if isinstance(exc, (RateLimitError, APITimeoutError, APIConnectionError)):
         return True
-    if isinstance(exc, APIStatusError) and exc.status_code in (502, 503, 529):
+    if isinstance(exc, APIStatusError) and exc.status_code in (404, 502, 503, 529):
         return True
     return False
 

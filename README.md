@@ -166,19 +166,23 @@ The `logs/` directory contains traces from a full 8-question evaluation run. Thi
 
 **What the traces show:**
 - All 8 questions completed successfully (no crashes).
-- The evidence-aware research loop executed correctly: multi-round searches, source selection, evidence evaluation, and follow-up research are visible in every trace.
-- Memory reuse worked for Q7 (recalled Titan Company and Ajoy Chawla facts from earlier questions).
+- Every question shows: plan → web_search tool calls → course-change events (model fallback) → final answer → auditor verdicts.
+- Memory reuse worked for Q7 (recalled Titan Company and Ajoy Chawla facts from earlier questions via `memory_recall` event, all 35 claims marked `from_memory=True`).
+- The Auditor produced non-rubber-stamp verdicts: `unsupported` in Q4 and Q8, `source_error` in Q4 and Q5, `no_citation` throughout.
+- Provider fallback is demonstrated in every trace (Nemotron → Gemma rate-limited → Ollama).
 - Total latency: ~2599s (~43 minutes) across 8 questions — entirely due to CPU-only Ollama inference (~300-400s per question).
 - Total cost: Rs. 0.00 (all inference was local).
 - Only 3 entities stored in memory after the full run.
 
 **What the traces also show (limitations of this run):**
-- The qwen2.5:7b model almost never produced inline `[URL]` citations, so the Auditor mostly reported `no_citation` verdicts.
+- This evaluation run used the original LLM-controlled tool-calling loop (not the evidence-aware loop, which was added later). The evidence-aware loop with structured source selection and evidence evaluation is in the current code and tested (22 tests in `test_evidence_loop.py`) but was not part of this evaluation run.
+- The qwen2.5:7b model almost never produced inline `[URL]` citations, so the Auditor mostly reported `no_citation` verdicts. Citations appear in Q4 (1 claim), Q5 (2 claims), and Q8 (1 claim).
+- The model called `fetch_page` infrequently — `web_search` was the primary tool. The `fetch_page` tool is implemented, tested (`test_tools.py`), and used by the evidence-aware loop, but the tool-calling loop's model rarely invoked it.
 - Without citations, entity storage was minimal (only 3 entities instead of the expected ~8+).
-- Memory reuse was limited — only Q7 triggered a recall.
-- Q1 and Q2 originally had corrupted summaries where the model echoed raw search query JSON instead of answering. This was diagnosed and the degraded-answer detection was added to prevent it.
+- Memory reuse was limited — only Q7 triggered a recall. Five questions were designed for entity reuse (Q2, Q4, Q5, Q7, Q8), but the cascading citation failure meant earlier questions didn't store entities for later reuse.
+- Token cost increased across questions (3086 → 4069 tokens), not decreased. No cost-reduction optimization (prompt caching, memory shortcutting) was implemented.
 
-These are **model-quality limitations**, not architecture limitations. The architecture correctly handles citations, entity storage, memory recall, and auditor verification when the underlying model produces them. With a stronger model (Nemotron or Gemma), citations work correctly.
+These are **model-quality limitations**, not architecture limitations. The code correctly handles citations, entity storage, memory recall, fetch_page, evidence evaluation, and auditor verification when the underlying model produces them. The test suite (109 tests) demonstrates each of these capabilities with mocked LLM responses.
 
 ## Known Limitations
 
@@ -188,7 +192,7 @@ These are **model-quality limitations**, not architecture limitations. The archi
 | Model quality | Smaller models sometimes echo search parameters or tool-call JSON as their answer instead of producing natural language. Degraded-answer detection catches this but the answer is lost. |
 | Hardware | CPU-only Ollama inference: ~300-400s per question on Intel i7-1355U, 16GB RAM. A GPU or cloud model would reduce this to seconds. |
 | Provider | OpenRouter free tier has daily request limits (~50 requests/day). Exhaustion forces fallback to local inference for the rest of the session. |
-| Architecture | No auditor feedback loop — the Auditor does not feed contradicted claims back to the Analyst for re-research. |
+| Architecture | Auditor feedback loop is implemented and demonstrated in optional experiments but not integrated into the main evaluation runner. |
 | Architecture | Regex-based entity extraction — proper nouns are detected via capitalization patterns, not NLP. Some entities may be missed or incorrectly segmented. |
 | Architecture | Sequential Auditor LLM verification — each claim is verified one at a time. With many claims, this adds latency linearly. |
 
@@ -215,14 +219,45 @@ These are **model-quality limitations**, not architecture limitations. The archi
 | `logs/q1_trace.json` – `logs/q8_trace.json` | Per-question traces: plan, searches, page fetches, evidence evaluations, answer, claims, audit verdicts, token/cost/latency metrics, memory state |
 | `logs/runner_summary.json` | Aggregate metrics: total tokens, cost, latency, success/failure counts, memory reuse |
 | `knowledge.json` | Entity memory state after the evaluation run |
+| `logs/optional/conflict_trace.json` | Conflict-detection experiment trace |
+| `logs/optional/feedback_loop_trace.json` | Auditor→Analyst feedback loop experiment trace |
+| `logs/optional/experiments_summary.json` | Optional experiment status summary |
+
+## Optional Experiments (Take It Further)
+
+Three optional experiments were attempted, clearly separated from the core 8-question evaluation. Experiment code is in `optional_experiments.py` and `run_adversarial.py`. Traces are in `logs/optional/`.
+
+### 1. Conflicting Sources — Implemented and Demonstrated
+
+**Question:** "What is the population of Delhi?"
+
+The evidence-aware loop detected genuine source conflicts: Wikipedia listed the 2011 census figure as 16,787,941 while a CEIC data source reported 16,368,000. The evidence evaluator flagged the conflict, and the answer-generation prompt required the Analyst to acknowledge and address the discrepancy.
+
+**Evidence:** `logs/optional/conflict_trace.json` — 6 searches, 9 page fetches, 5 claims, 4 cited, `conflicts_detected: true`.
+
+### 2. Auditor → Analyst Feedback Loop — Implemented and Demonstrated
+
+**Question:** "What is the market cap of Reliance Industries and who is the chairman?"
+
+Pass 1: Analyst answered with 2 claims, 0 citations. Auditor flagged both as `no_citation` (2 problems). The system automatically fed the Auditor's findings back to the Analyst with specific instructions to re-research and cite.
+
+Pass 2: After re-research (2 additional searches, 4 page fetches), the revised answer had 2 claims, 2 citations, both verified as `supported` by the Auditor. Problems went from 2 → 0.
+
+**Evidence:** `logs/optional/feedback_loop_trace.json` — full two-pass trace with improvement metrics.
+
+### 3. Adversarial Analyst — Attempted, Not Demonstrated
+
+The experiment compared a normal system prompt against an adversarial prompt that warns the Analyst about Auditor verification. The implementation is complete (`run_adversarial.py`), but live demonstration was blocked: OpenRouter's free-tier models were rate-limited (Nemotron and Gemma both returned errors), forcing fallback to local Ollama (qwen2.5:7b on CPU), which took ~340 seconds for a single normal-mode run — exceeding the practical 4-minute timeout before the adversarial comparison could begin. This is a hardware/provider constraint, not a code limitation.
+
+### Not Attempted
+
+- **50% cost reduction** — not achieved. Token usage increased across questions (3086 → 4069) due to the multi-round evidence loop. No prompt-caching or memory-shortcutting optimization was implemented.
+- **2-minute wall-clock target** — not achieved. CPU-only Ollama inference takes ~300-400s per question. Cloud models would meet this target but were rate-limited during evaluation.
 
 ## Future Work
 
 These are improvements that are **not currently implemented**:
 
-- **Auditor feedback loop** — contradicted claims could trigger targeted re-research by the Analyst, creating a closed verification cycle.
-- **Stronger conflict resolution** — when credible sources disagree, the system could apply recency, authority, or cross-reference heuristics beyond the current LLM-based approach.
-- **Adversarial evaluation** — questions designed to test the system's ability to resist misleading search results or detect factual manipulation.
 - **Better model/provider routing** — dynamically route different question types to different models based on difficulty or topic.
 - **Parallel Auditor LLM calls** — verify claims concurrently (with rate limiting) to reduce audit latency.
 - **Production-scale memory** — replace the JSON file with a database backend for larger entity stores.

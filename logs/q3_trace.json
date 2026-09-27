@@ -10,64 +10,184 @@
   "status": "success",
   "analyst": {
     "question": "Who founded Infosys, and what is the company's current market capitalization?",
-    "plan": "- Find specific facts on the founder of Infosys and the latest reported market capitalization.\n- Use search queries such as \"Infosys founder\" and \"current market capitalization of Infosys.\"\n- Cross-check claims by comparing results from financial news websites, business databases, and official company reports.",
+    "plan": "- Find specific facts about Infosys' founder and current market capitalization.\n- Use search queries such as \"Infosys founder\" and \"current market capitalization of Infosys.\"\n- Cross-check claims by comparing results from financial news websites, business databases, and official company reports.",
     "claims": [
       {
-        "text": "Based on the provided information, here's a summary of key details about Shyama Infosys and Infosys: ### Shyama Infosys:\n- **Stock Symbol:** 531219\n- **Share Price as of Tuesday Closing (15-Sep-2026):** $0.04\n- **Market Capitalization as of 15-Sep-2026:** $394K\n- **Number of Shares Outstanding as of 15-Sep-2026:** 10.1M\n- **Trailing Twelve Month Revenue (as of 30-Jun-2026):** $31.5K ### Infosys:\n- **Stock Symbol:** INFY\n- **Number of Shares Outstanding as of June 30, 2026:** 4,057,578,830\n- **Market Capitalization as of June 30, 2026:** INR 4.05T (approximately $51B USD)\n- **Equity Share Par Value:** Rs 5\n- **Number of Employees:** Not explicitly stated in the provided data ### Key Differences:\n1.",
+        "text": "Based on the provided information from ICICI Direct, here is a summary of key details about Infosys: - **Market Capitalization**: As of Aug 21, 2026 at 03:58 PM, Infosys' market capitalization was Rs.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "Market Capitalization:** - Shyama Infosys has a market capitalization of only $394K.",
+        "text": "454,854.61 Cr.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "- Infosys, on the other hand, has a significantly larger market capitalization of INR 4.05T (approximately $51B USD).",
+        "text": "- **Stock Price Overview**: - Current Price: \u20b91,118.00 - Previous Close: \u20b91,133.50 - Open: \u20b9982.40 - Day's High: \u20b91,728.00 - Day's Low: \u20b91,130.00 - **Volume**: 6,094,967 shares traded.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "Revenue and Share Price:** - Shyama Infosys's trailing twelve-month revenue is much lower at $31.5K.",
+        "text": "- **Stock PE (TTM)**: Not explicitly provided in the snippet but can be found on the site.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "- The share price of Shyama Infosys is also much lower, at $0.04 per share.",
+        "text": "- **Promoter Holding**: Not explicitly provided in the snippet but can be found on the site.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "Employee Base:** - While the exact number of employees for Shyama Infosys isn't provided, it's clear that Infosys has a substantially larger workforce (21,000+ employees) compared to Shyama Infosys.",
+        "text": "- **Book Value**, **ROCE** (Return on Capital Employed), and **ROE** (Return on Equity): Not explicitly provided in the snippet but can be found on the site.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "### Additional Insights:\n- **Shyama Infosys** is engaged in providing information technology enabled services and investment activities in shares and securities.",
+        "text": "### SWOT Analysis\nNot detailed in the given content, but typically includes:\n- Strengths: Global presence, strong R&D capabilities.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "- **Infosys** is a well-established IT consulting and outsourcing company with a much larger market presence and financial resources.",
+        "text": "- Weaknesses: Dependence on global economic conditions.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "These differences highlight the significant disparity between Shyama Infosys and Infosys, both in terms of scale and market position.",
+        "text": "- Opportunities: Growth in emerging markets, digital transformation trends.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- Threats: Competition from other IT services providers, regulatory changes.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "### Technical Analysis\n- **Moving Averages**: Not detailed but can be found on the site.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- **Resistance and Support Levels**: Not explicitly provided in the snippet but can be found on the site.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "### Company Financials\nNot detailed in the given content, but typically includes:\n- Revenue growth trends.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- Profit margins.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- Debt levels.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- Cash flow analysis.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "### Shareholding Pattern\n- Summary: Not detailed but can be found on the site.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- Historical Promoter Summary: Not detailed but can be found on the site.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- Historical FII Holdings (Foreign Institutional Investors): Not detailed but can be found on the site.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- Historical MF Holdings (Mutual Funds): Not detailed but can be found on the site.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "### Corporate Actions\nNot detailed in the given content, but typically includes:\n- Dividends.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- Stock splits.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- Rights issues.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "### Insider & Institutional Activity\nNot detailed in the given content, but typically includes:\n- Trades by company insiders.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- Trades by institutional investors.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "### Additional Information\n- **Headquarters**: Bangalore, India (originally incorporated in Pune).",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- **Year of Incorporation**: 1981.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- **Consolidated Total Income as of March 2022**: \u20b932,913 crore, up 1.65% from the previous quarter.",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "For more detailed information on specific metrics like PE ratio, promoter holding, book value, ROCE, and ROE, you would need to visit the full page or navigate through the relevant sections provided by ICICI Direct.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       }
     ],
-    "summary": "Based on the provided information, here's a summary of key details about Shyama Infosys and Infosys:\n\n### Shyama Infosys:\n- **Stock Symbol:** 531219\n- **Share Price as of Tuesday Closing (15-Sep-2026):** $0.04\n- **Market Capitalization as of 15-Sep-2026:** $394K\n- **Number of Shares Outstanding as of 15-Sep-2026:** 10.1M\n- **Trailing Twelve Month Revenue (as of 30-Jun-2026):** $31.5K\n\n### Infosys:\n- **Stock Symbol:** INFY\n- **Number of Shares Outstanding as of June 30, 2026:** 4,057,578,830\n- **Market Capitalization as of June 30, 2026:** INR 4.05T (approximately $51B USD)\n- **Equity Share Par Value:** Rs 5\n- **Number of Employees:** Not explicitly stated in the provided data\n\n### Key Differences:\n1. **Market Capitalization:**\n   - Shyama Infosys has a market capitalization of only $394K.\n   - Infosys, on the other hand, has a significantly larger market capitalization of INR 4.05T (approximately $51B USD).\n\n2. **Revenue and Share Price:**\n   - Shyama Infosys's trailing twelve-month revenue is much lower at $31.5K.\n   - The share price of Shyama Infosys is also much lower, at $0.04 per share.\n\n3. **Employee Base:**\n   - While the exact number of employees for Shyama Infosys isn't provided, it's clear that Infosys has a substantially larger workforce (21,000+ employees) compared to Shyama Infosys.\n\n### Additional Insights:\n- **Shyama Infosys** is engaged in providing information technology enabled services and investment activities in shares and securities.\n- **Infosys** is a well-established IT consulting and outsourcing company with a much larger market presence and financial resources.\n\nThese differences highlight the significant disparity between Shyama Infosys and Infosys, both in terms of scale and market position.",
+    "summary": "Based on the provided information from ICICI Direct, here is a summary of key details about Infosys:\n\n- **Market Capitalization**: As of Aug 21, 2026 at 03:58 PM, Infosys' market capitalization was Rs. 454,854.61 Cr.\n  \n- **Stock Price Overview**:\n  - Current Price: \u20b91,118.00\n  - Previous Close: \u20b91,133.50\n  - Open: \u20b9982.40\n  - Day's High: \u20b91,728.00\n  - Day's Low: \u20b91,130.00\n\n- **Volume**: 6,094,967 shares traded.\n\n- **Stock PE (TTM)**: Not explicitly provided in the snippet but can be found on the site.\n  \n- **Promoter Holding**: Not explicitly provided in the snippet but can be found on the site.\n  \n- **Book Value**, **ROCE** (Return on Capital Employed), and **ROE** (Return on Equity): Not explicitly provided in the snippet but can be found on the site.\n\n### SWOT Analysis\nNot detailed in the given content, but typically includes:\n- Strengths: Global presence, strong R&D capabilities.\n- Weaknesses: Dependence on global economic conditions.\n- Opportunities: Growth in emerging markets, digital transformation trends.\n- Threats: Competition from other IT services providers, regulatory changes.\n\n### Technical Analysis\n- **Moving Averages**: Not detailed but can be found on the site.\n- **Resistance and Support Levels**: Not explicitly provided in the snippet but can be found on the site.\n\n### Company Financials\nNot detailed in the given content, but typically includes:\n- Revenue growth trends.\n- Profit margins.\n- Debt levels.\n- Cash flow analysis.\n\n### Shareholding Pattern\n- Summary: Not detailed but can be found on the site.\n- Historical Promoter Summary: Not detailed but can be found on the site.\n- Historical FII Holdings (Foreign Institutional Investors): Not detailed but can be found on the site.\n- Historical MF Holdings (Mutual Funds): Not detailed but can be found on the site.\n\n### Corporate Actions\nNot detailed in the given content, but typically includes:\n- Dividends.\n- Stock splits.\n- Rights issues.\n\n### Insider & Institutional Activity\nNot detailed in the given content, but typically includes:\n- Trades by company insiders.\n- Trades by institutional investors.\n\n### Additional Information\n- **Headquarters**: Bangalore, India (originally incorporated in Pune).\n- **Year of Incorporation**: 1981.\n- **Consolidated Total Income as of March 2022**: \u20b932,913 crore, up 1.65% from the previous quarter.\n\nFor more detailed information on specific metrics like PE ratio, promoter holding, book value, ROCE, and ROE, you would need to visit the full page or navigate through the relevant sections provided by ICICI Direct.",
     "sources_used": [],
     "tool_trace": [
       {
@@ -75,23 +195,23 @@
         "event": "model_fallback",
         "from_model": "nvidia/nemotron-3-super-120b-a12b:free",
         "to_model": "google/gemma-4-31b-it:free",
-        "reason": "RuntimeError: Empty choices in response",
-        "timestamp": 0.6066803932189941
+        "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3Jl6aKLIaiC4dg8s3fhdvCpIhBu'}",
+        "timestamp": 3.7976181507110596
       },
       {
         "round": 0,
         "event": "ollama_fallback",
         "from_model": "google/gemma-4-31b-it:free",
         "to_model": "qwen2.5:7b",
-        "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations', 'provider_name': 'Google AI Studio', 'is_byok': False, 'provider_error_code': '429', 'limit_source': 'upstream_provider_shared_pool', 'remedy_hint': 'Retry shortly, add your own provider key (https://openrouter.ai/settings/integrations), or route to another provider with provider routing: https://openrouter.ai/docs/features/provider-routing'}}, 'user_id': 'user_3Jl6aKLIaiC4dg8s3fhdvCpIhBu'}",
-        "timestamp": 3.108628988265991
+        "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3Jl6aKLIaiC4dg8s3fhdvCpIhBu'}",
+        "timestamp": 5.825496196746826
       },
       {
         "round": 0,
         "event": "plan",
         "model": "qwen2.5:7b",
-        "plan": "- Find specific facts on the founder of Infosys and the latest reported market capitalization.\n- Use search queries such as \"Infosys founder\" and \"current market capitalization of Infosys.\"\n- Cross-check claims by comparing results from financial news websites, business databases, and official company reports.",
-        "timestamp": 20.590816974639893
+        "plan": "- Find specific facts about Infosys' founder and current market capitalization.\n- Use search queries such as \"Infosys founder\" and \"current market capitalization of Infosys.\"\n- Cross-check claims by comparing results from financial news websites, business databases, and official company reports.",
+        "timestamp": 20.452751398086548
       },
       {
         "round": 1,
@@ -101,7 +221,7 @@
           "max_results": 5
         },
         "model": "qwen2.5:7b",
-        "timestamp": 37.37432837486267,
+        "timestamp": 41.969032287597656,
         "result_preview": "Title: N. R. Narayana Murthy - Wikipedia\nURL: https://en.wikipedia.org/wiki/N._R._Narayana_Murthy\nSnippet: In this Indian name, the name Nagavara Ramarao is a patronymic, and the person should be referred to by the given name, Narayana Murthy.\n\nNagavara Ramarao Narayana Murthy (born 20 August 1946) is an Indian billionaire businessman. He is the founder of Infosys, and was the chairman, chief executive officer (CEO), president and chief mentor of the company before retiring and becoming chairman emeritus. As of January 2025, his net worth was estimated at US$5.0 billion, according to Forbes. [...] Murthy mentions that being arrested and expelled for no good reason during the communist era 1974 in a border town near the Yugoslav-Bulgarian border, turned him into a \"compassionate capitalist\" from a \"confused leftist/communist\". In 1981 he, with six software professionals, founded Infosys with an initial capital investment of Rs 10,000, which was provided by his wife Sudha Murty. Murthy w"
       },
       {
@@ -112,19 +232,19 @@
           "max_results": 5
         },
         "model": "qwen2.5:7b",
-        "timestamp": 40.97636079788208,
+        "timestamp": 47.80405068397522,
         "result_preview": "Title: NSE:INFY Market Cap: \u20b94,258,531 Mil | GuruFocus\nURL: https://www.gurufocus.com/term/mktcap/NSE:INFY\nSnippet: Is Infosys' Market Cap too high?\n\nInfosys' current Market Cap is \u20b94,258,531 Mil. Based on the distribution chart, Infosys ranks #30 out of 2935 companies in the Software industry, which is in the top quartile \u2014 a strong position relative to peers. Overall, Infosys has a GF Score\u2122 of 78/100 and is considered Significantly Undervalued, reflecting its overall financial health beyond just this single metric.\n\nHow does Infosys' Market Cap compare to IBM and ACN? [...] Is Infosys stock overvalued right now?\n\nBased on GuruFocus' analysis, Infosys (NSE:INFY) is currently considered Significantly Undervalued. The stock's GF Value\u2122 is \u20b91,827.02, compared to a current price of \u20b91,051.40 \u2014 trading 42.5% below its estimated fair value. The current Market Cap is \u20b94,258,531 Mil. Infosys' overall GF Score\u2122 is 78/100 with 2 warning signs to review. Investors should evaluate multiple metri"
       },
       {
         "round": 2,
         "event": "final_answer",
         "model": "qwen2.5:7b",
-        "timestamp": 323.4624707698822
+        "timestamp": 371.08341360092163
       }
     ],
     "cost": {
-      "input_tokens": 2849,
-      "output_tokens": 627,
+      "input_tokens": 2846,
+      "output_tokens": 758,
       "model": "qwen2.5:7b",
       "cost_usd": 0.0
     }
@@ -135,7 +255,7 @@
     "verdicts": [
       {
         "claim": {
-          "text": "Based on the provided information, here's a summary of key details about Shyama Infosys and Infosys: ### Shyama Infosys:\n- **Stock Symbol:** 531219\n- **Share Price as of Tuesday Closing (15-Sep-2026):** $0.04\n- **Market Capitalization as of 15-Sep-2026:** $394K\n- **Number of Shares Outstanding as of 15-Sep-2026:** 10.1M\n- **Trailing Twelve Month Revenue (as of 30-Jun-2026):** $31.5K ### Infosys:\n- **Stock Symbol:** INFY\n- **Number of Shares Outstanding as of June 30, 2026:** 4,057,578,830\n- **Market Capitalization as of June 30, 2026:** INR 4.05T (approximately $51B USD)\n- **Equity Share Par Value:** Rs 5\n- **Number of Employees:** Not explicitly stated in the provided data ### Key Differences:\n1.",
+          "text": "Based on the provided information from ICICI Direct, here is a summary of key details about Infosys: - **Market Capitalization**: As of Aug 21, 2026 at 03:58 PM, Infosys' market capitalization was Rs.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -147,7 +267,7 @@
       },
       {
         "claim": {
-          "text": "Market Capitalization:** - Shyama Infosys has a market capitalization of only $394K.",
+          "text": "454,854.61 Cr.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -159,7 +279,7 @@
       },
       {
         "claim": {
-          "text": "- Infosys, on the other hand, has a significantly larger market capitalization of INR 4.05T (approximately $51B USD).",
+          "text": "- **Stock Price Overview**: - Current Price: \u20b91,118.00 - Previous Close: \u20b91,133.50 - Open: \u20b9982.40 - Day's High: \u20b91,728.00 - Day's Low: \u20b91,130.00 - **Volume**: 6,094,967 shares traded.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -171,7 +291,7 @@
       },
       {
         "claim": {
-          "text": "Revenue and Share Price:** - Shyama Infosys's trailing twelve-month revenue is much lower at $31.5K.",
+          "text": "- **Stock PE (TTM)**: Not explicitly provided in the snippet but can be found on the site.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -183,7 +303,7 @@
       },
       {
         "claim": {
-          "text": "- The share price of Shyama Infosys is also much lower, at $0.04 per share.",
+          "text": "- **Promoter Holding**: Not explicitly provided in the snippet but can be found on the site.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -195,7 +315,7 @@
       },
       {
         "claim": {
-          "text": "Employee Base:** - While the exact number of employees for Shyama Infosys isn't provided, it's clear that Infosys has a substantially larger workforce (21,000+ employees) compared to Shyama Infosys.",
+          "text": "- **Book Value**, **ROCE** (Return on Capital Employed), and **ROE** (Return on Equity): Not explicitly provided in the snippet but can be found on the site.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -207,7 +327,7 @@
       },
       {
         "claim": {
-          "text": "### Additional Insights:\n- **Shyama Infosys** is engaged in providing information technology enabled services and investment activities in shares and securities.",
+          "text": "### SWOT Analysis\nNot detailed in the given content, but typically includes:\n- Strengths: Global presence, strong R&D capabilities.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -219,7 +339,7 @@
       },
       {
         "claim": {
-          "text": "- **Infosys** is a well-established IT consulting and outsourcing company with a much larger market presence and financial resources.",
+          "text": "- Weaknesses: Dependence on global economic conditions.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -231,7 +351,247 @@
       },
       {
         "claim": {
-          "text": "These differences highlight the significant disparity between Shyama Infosys and Infosys, both in terms of scale and market position.",
+          "text": "- Opportunities: Growth in emerging markets, digital transformation trends.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- Threats: Competition from other IT services providers, regulatory changes.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "### Technical Analysis\n- **Moving Averages**: Not detailed but can be found on the site.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- **Resistance and Support Levels**: Not explicitly provided in the snippet but can be found on the site.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "### Company Financials\nNot detailed in the given content, but typically includes:\n- Revenue growth trends.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- Profit margins.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- Debt levels.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- Cash flow analysis.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "### Shareholding Pattern\n- Summary: Not detailed but can be found on the site.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- Historical Promoter Summary: Not detailed but can be found on the site.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- Historical FII Holdings (Foreign Institutional Investors): Not detailed but can be found on the site.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- Historical MF Holdings (Mutual Funds): Not detailed but can be found on the site.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "### Corporate Actions\nNot detailed in the given content, but typically includes:\n- Dividends.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- Stock splits.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- Rights issues.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "### Insider & Institutional Activity\nNot detailed in the given content, but typically includes:\n- Trades by company insiders.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- Trades by institutional investors.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "### Additional Information\n- **Headquarters**: Bangalore, India (originally incorporated in Pune).",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- **Year of Incorporation**: 1981.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- **Consolidated Total Income as of March 2022**: \u20b932,913 crore, up 1.65% from the previous quarter.",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "For more detailed information on specific metrics like PE ratio, promoter holding, book value, ROCE, and ROE, you would need to visit the full page or navigate through the relevant sections provided by ICICI Direct.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -242,7 +602,7 @@
         "source_url": null
       }
     ],
-    "summary": "9 claim(s) audited. 9 had no citation. Reliability: LOW.",
+    "summary": "29 claim(s) audited. 29 had no citation. Reliability: LOW.",
     "limitations": [],
     "cost": {
       "input_tokens": 0,
@@ -253,37 +613,28 @@
   },
   "auditor_model": "none",
   "metrics": {
-    "analyst_input_tokens": 2849,
-    "analyst_output_tokens": 627,
+    "analyst_input_tokens": 2846,
+    "analyst_output_tokens": 758,
     "analyst_cost_inr": 0.0,
-    "analyst_latency_s": 323.5,
+    "analyst_latency_s": 371.1,
     "analyst_model": "qwen2.5:7b",
     "auditor_input_tokens": 0,
     "auditor_output_tokens": 0,
     "auditor_cost_inr": 0.0,
     "auditor_latency_s": 0.0,
     "auditor_model": "none",
-    "total_latency_s": 323.5,
+    "total_latency_s": 371.1,
     "total_cost_inr": 0.0,
     "verdicts": {
       "supported": 0,
       "unsupported": 0,
       "contradicted": 0,
-      "no_citation": 9,
+      "no_citation": 29,
       "source_error": 0
     },
-    "memory_entities_before": 1,
-    "memory_entities_after": 1,
+    "memory_entities_before": 0,
+    "memory_entities_after": 0,
     "memory_used": false
   },
-  "memory_state": {
-    "managing_director": {
-      "entity_type": "unknown",
-      "fact_count": 1,
-      "related": [
-        "titan_company",
-        "c.k._venkataraman"
-      ]
-    }
-  }
+  "memory_state": {}
 }

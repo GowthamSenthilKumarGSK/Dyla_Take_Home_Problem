@@ -4,7 +4,7 @@
 
 **Separate Analyst and Auditor agents.** The Analyst researches and answers; the Auditor independently re-fetches every cited source and verifies each claim. Independence is the point — the Auditor does not trust the Analyst's fetched content.
 
-**Evidence-aware research loop** (up to 3 rounds). After each round of search → source selection → page fetch, the Analyst evaluates whether the collected evidence is sufficient. If not, it generates a targeted follow-up query. This replaced an earlier tool-calling loop where the LLM controlled search/fetch directly — the structured loop is more predictable and observable.
+**Evidence-aware research loop** (up to 3 rounds). After each round of search → source selection → page fetch, the Analyst evaluates whether the collected evidence is sufficient. If not, it generates a targeted follow-up query. This replaced an earlier tool-calling loop where the LLM controlled search/fetch directly — the structured loop is more predictable and observable. Note: the included evaluation traces (`logs/q*_trace.json`) predate this change and show the original tool-calling loop with qwen2.5:7b. The evidence-aware loop is in the current code and tested (22 tests) but was not re-evaluated due to time and provider constraints.
 
 **Deterministic source selection.** Sources are ranked by Tavily relevance score plus domain-quality heuristics (.gov/.edu boost, Pinterest/Quora penalty). No LLM call is needed for selection, making this step fast, reproducible, and auditable.
 
@@ -33,7 +33,7 @@
 ## What Remains Limited
 
 - **Model-dependent citation quality.** qwen2.5:7b almost never produces inline `[URL]` citations. This cascades: no citations → no entity storage → limited memory reuse → Auditor reports `no_citation`. The architecture handles citations correctly when the model produces them.
-- **No auditor feedback loop.** Contradicted claims are reported but not fed back for re-research.
+- **Auditor feedback loop demonstrated but not in main runner.** Implemented and demonstrated in optional experiments (problems 2→0 after one feedback cycle), but not integrated into the 8-question evaluation runner.
 - **CPU-only local inference.** ~300-400s per question. A GPU or staying on cloud models would reduce this to seconds.
 - **Regex entity extraction.** Misses entities that don't follow capitalization patterns.
 
@@ -41,10 +41,20 @@
 
 109 tests across 8 files, all mocked (no API keys or network required). Coverage includes: evidence loop behavior (sufficiency, follow-up, conflicts, termination), source selection scoring, plan parsing, verdict parsing, all verdict types, memory operations (store, recall, pollution prevention, claim filtering), provider fallback chain, timeout bounds, runner error handling, question validation, and trace/source extraction.
 
+## Optional Experiments
+
+Three "take it further" experiments were attempted, separate from the core evaluation:
+
+1. **Conflict detection** — demonstrated. Delhi population question surfaced genuine source conflicts (Wikipedia vs CEIC census data). Evidence evaluator flagged the conflict; answer addressed the discrepancy. Trace: `logs/optional/conflict_trace.json`.
+2. **Auditor feedback loop** — demonstrated. Reliance Industries question: pass 1 had 0 citations and 2 problems; after automated feedback and re-research, pass 2 had 2 citations, both `supported`, 0 problems. Trace: `logs/optional/feedback_loop_trace.json`.
+3. **Adversarial analyst** — attempted but not demonstrated. Implementation complete (`run_adversarial.py`), but OpenRouter rate limits forced Ollama fallback, which took ~340s per question on CPU-only hardware, exceeding the practical timeout.
+
+**Not attempted:** 50% cost reduction (token usage increased with multi-round loop) and 2-minute wall-clock target (CPU-only Ollama takes ~300-400s per question).
+
 ## With Two More Weeks
 
-1. **Auditor feedback loop** — contradicted claims trigger targeted re-research, creating a closed verification cycle.
-2. **Run evaluation with cloud models** — get traces that demonstrate full citation/memory/audit behavior.
+1. **Run evaluation with cloud models** — get traces that demonstrate full citation/memory/audit behavior.
+2. **Integrate feedback loop into main runner** — currently demonstrated as a standalone experiment.
 3. **Parallel LLM verification** in the Auditor with rate limiting.
-4. **Adversarial evaluation questions** — test resistance to misleading search results.
+4. **Adversarial evaluation** — run on GPU hardware or with cloud models to complete the comparison.
 5. **Structured evaluation scoring** — automated comparison of answers against ground-truth for the 8 benchmark questions.

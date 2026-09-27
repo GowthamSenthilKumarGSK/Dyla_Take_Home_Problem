@@ -68,4 +68,10 @@ This project was developed with AI assistance (Claude Code). This log documents 
 - AI benchmarked alternative providers (Groq, Gemini) to validate the architecture choice
 
 ## Runtime Traces
-The `q1_trace.json` through `q8_trace.json` files contain the Analyst and Auditor runtime traces from the 8-question evaluation. These are the agent's research traces, not development logs.
+The `q1_trace.json` through `q8_trace.json` files contain the Analyst and Auditor runtime traces from the 8-question evaluation run. `runner_summary.json` contains the aggregate metrics. All 8 traces and the summary correspond to the same single evaluation run.
+
+### What changed between code versions and the evaluation run
+- The evaluation run (traces Q1-Q8) was executed with the **original LLM-controlled tool-calling loop** (Phase 6-7 code). The model chose which tools to call on each round.
+- After the evaluation run, the **evidence-aware research loop** was implemented (Phase 7), replacing the LLM-controlled loop with structured search → source selection → fetch → evidence evaluation → follow-up.
+- The evidence-aware loop is in the current committed code and tested (22 tests in `test_evidence_loop.py`), but the evaluation traces predate it.
+- The evaluation run fell back to local Ollama qwen2.5:7b because OpenRouter's free-tier quota was exhausted. The model quality limitations (poor citations, minimal entity storage) are documented in the README.

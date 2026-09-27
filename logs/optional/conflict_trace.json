@@ -1,0 +1,531 @@
+{
+  "experiment": "conflicting_sources",
+  "question": "What is the population of Delhi? Report the figure from the 2011 Census and the most recent estimate, noting any differences between sources.",
+  "analyst": {
+    "question": "What is the population of Delhi? Report the figure from the 2011 Census and the most recent estimate, noting any differences between sources.",
+    "plan": "QUERIES:\n- \"Delhi population 2011 Census\"\n- \"Delhi population estimate 2023\"\n- \"Delhi population 2022 provisional estimate\"\n- \"Delhi NCT population latest official estimate\"\n\nPLAN:\n- Find the exact 2011 Census population figure for the National Capital Territory of Delhi from the Office of the Registrar General & Census Commissioner of India.\n- Identify the most recent population estimate for Delhi (preferably 2022 or 2023) from reliable sources such as the Government of Delhi's Directorate of Economics and Statistics, the United Nations World Urbanization Prospects, or the World Bank.\n- Note any discrepancies between the Census figure and the estimate, and verify the estimate by cross\u2011checking at least two independent sources (e.g., a government report and an international database).",
+    "claims": [
+      {
+        "text": "- The 2011 Census of India recorded the population of the National Capital Territory (NCT) of Delhi as **16,787,941** persons.",
+        "citation": "https://en.wikipedia.org/wiki/Delhi",
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "This figure is also reported by the Census\u202f2011.co.in district list for Delhi.",
+        "citation": "https://www.census2011.co.in/census/state/districtlist/delhi.html",
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- A different CEIC dataset, which cites the Office of the Registrar General & Census Commissioner, India, lists the 2011 Census population for \u201cDelhi: Delhi\u201d as **16,368,899** persons.",
+        "citation": "https://www.ceicdata.com/en/india/census-population-by-towns-and-urban-agglomerations-nct-of-delhi/census-population-delhi-delhi",
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "The discrepancy likely reflects different geographic delimitations (e.g., Delhi district/core city versus the full NCT).",
+        "citation": null,
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "- The most recent official estimate available is the projection for **1\u202fJuly\u202f2023** from the Technical Group of the National Commission on Population, which puts Delhi\u2019s population at **21,490,000** (21.49\u202fmillion).",
+        "citation": "https://statisticstimes.com/demographics/india/delhi-population.php",
+        "confidence": "medium",
+        "from_memory": false
+      }
+    ],
+    "summary": "**  \n- The 2011 Census of India recorded the population of the National Capital Territory (NCT) of Delhi as **16,787,941** persons\u3010https://en.wikipedia.org/wiki/Delhi\u3011. This figure is also reported by the Census\u202f2011.co.in district list for Delhi\u3010https://www.census2011.co.in/census/state/districtlist/delhi.html\u3011.  \n- A different CEIC dataset, which cites the Office of the Registrar General & Census Commissioner, India, lists the 2011 Census population for \u201cDelhi: Delhi\u201d as **16,368,899** persons\u3010https://www.ceicdata.com/en/india/census-population-by-towns-and-urban-agglomerations-nct-of-delhi/census-population-delhi-delhi\u3011. The discrepancy likely reflects different geographic delimitations (e.g., Delhi district/core city versus the full NCT).  \n- The most recent official estimate available is the projection for **1\u202fJuly\u202f2023** from the Technical Group of the National Commission on Population, which puts Delhi\u2019s population at **21,490,000** (21.49\u202fmillion)\u3010https://statisticstimes.com/demographics/india/delhi-population.php\u3011.",
+    "sources_used": [
+      "https://en.wikipedia.org/wiki/Delhi",
+      "https://www.ceicdata.com/en/india/census-population-by-towns-and-urban-agglomerations-nct-of-delhi/census-population-delhi-delhi",
+      "https://www.census2011.co.in/census/state/districtlist/delhi.html",
+      "https://statisticstimes.com/demographics/india/delhi-population.php"
+    ],
+    "tool_trace": [
+      {
+        "round": 0,
+        "event": "plan",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "plan": "QUERIES:\n- \"Delhi population 2011 Census\"\n- \"Delhi population estimate 2023\"\n- \"Delhi population 2022 provisional estimate\"\n- \"Delhi NCT population latest official estimate\"\n\nPLAN:\n- Find the exact 2011 Census population figure for the National Capital Territory of Delhi from the Office of the Registrar General & Census Commissioner of India.\n- Identify the most recent population estimate for Delhi (preferably 2022 or 2023) from reliable sources such as the Government of Delhi's Directorate of Economics and Statistics, the United Nations World Urbanization Prospects, or the World Bank.\n- Note any discrepancies between the Census figure and the estimate, and verify the estimate by cross\u2011checking at least two independent sources (e.g., a government report and an international database).",
+        "timestamp": 3.5665526390075684
+      },
+      {
+        "round": 0,
+        "event": "parsed_queries",
+        "queries": [
+          "Delhi population 2011 Census",
+          "Delhi population estimate 2023",
+          "Delhi population 2022 provisional estimate",
+          "Delhi NCT population latest official estimate"
+        ],
+        "timestamp": 3.5667474269866943
+      },
+      {
+        "round": 1,
+        "event": "search",
+        "query": "Delhi population 2011 Census",
+        "result_count": 5,
+        "urls": [
+          "https://www.ceicdata.com/en/india/census-population-by-towns-and-urban-agglomerations-nct-of-delhi/census-population-delhi-delhi",
+          "https://en.wikipedia.org/wiki/Delhi",
+          "https://www.census2011.co.in/census/state/districtlist/delhi.html",
+          "https://statisticstimes.com/demographics/india/delhi-population.php",
+          "https://www.researchgate.net/figure/City-wise-total-population-as-per-Census-of-India-2011-and-number-of-households_tbl1_320198756"
+        ],
+        "error": null,
+        "timestamp": 8.226545810699463
+      },
+      {
+        "round": 1,
+        "event": "search",
+        "query": "Delhi population estimate 2023",
+        "result_count": 5,
+        "urls": [
+          "https://www.macrotrends.net/global-metrics/cities/21228/delhi/population",
+          "https://www.neilsberg.com/insights/delhi-ny-population-by-year",
+          "https://timesofindia.indiatimes.com/city/delhi/delhis-population-projected-to-rise-to-2-65-crore-by-2036-says-report/articleshow/105846596.cms",
+          "https://www.census2011.co.in/census/city/49-delhi.html",
+          "https://statisticstimes.com/demographics/india/delhi-population.php"
+        ],
+        "error": null,
+        "timestamp": 12.42082929611206
+      },
+      {
+        "round": 1,
+        "event": "search",
+        "query": "Delhi population 2022 provisional estimate",
+        "result_count": 5,
+        "urls": [
+          "https://www.findeasy.in/population-of-delhi",
+          "https://www.facebook.com/IndiaHistory/posts/population-census-preliminary-reports-for-the-latest-census-are-available-for-de/1426582026154200",
+          "https://www.slideshare.net/slideshow/provisional-population-totals-delhi/12525982",
+          "https://statisticstimes.com/demographics/india/delhi-population.php",
+          "https://www.census2011.co.in/census/city/49-delhi.html"
+        ],
+        "error": null,
+        "timestamp": 18.16955876350403
+      },
+      {
+        "round": 1,
+        "event": "search",
+        "query": "Delhi NCT population latest official estimate",
+        "result_count": 5,
+        "urls": [
+          "https://en.wikipedia.org/wiki/Delhi",
+          "https://worldpopulationreview.com/cities/india/delhi",
+          "https://www.census2011.co.in/census/city/49-delhi.html",
+          "https://statisticstimes.com/demographics/india/delhi-population.php",
+          "https://www.facebook.com/IndiaHistory/posts/population-census-preliminary-reports-for-the-latest-census-are-available-for-de/1426582026154200"
+        ],
+        "error": null,
+        "timestamp": 23.988582611083984
+      },
+      {
+        "round": 1,
+        "event": "source_selection",
+        "selected": [
+          {
+            "url": "https://en.wikipedia.org/wiki/Delhi",
+            "title": "Delhi",
+            "score": 1.088
+          },
+          {
+            "url": "https://www.ceicdata.com/en/india/census-population-by-towns-and-urban-agglomerations-nct-of-delhi/census-population-delhi-delhi",
+            "title": "Census: Population: Delhi: Delhi | Economic Indicators | CEIC",
+            "score": 0.947
+          },
+          {
+            "url": "https://www.macrotrends.net/global-metrics/cities/21228/delhi/population",
+            "title": "Delhi, India Metro Area Population (1950-2026)",
+            "score": 0.935
+          }
+        ],
+        "total_candidates": 20,
+        "already_fetched": 0,
+        "timestamp": 23.988807916641235
+      },
+      {
+        "round": 1,
+        "event": "fetch_page",
+        "url": "https://en.wikipedia.org/wiki/Delhi",
+        "title": "Delhi - Wikipedia",
+        "success": true,
+        "error": null,
+        "text_length": 20016,
+        "timestamp": 26.358747005462646
+      },
+      {
+        "round": 1,
+        "event": "fetch_page",
+        "url": "https://www.ceicdata.com/en/india/census-population-by-towns-and-urban-agglomerations-nct-of-delhi/census-population-delhi-delhi",
+        "title": "India Census: Population: Delhi: Delhi",
+        "success": true,
+        "error": null,
+        "text_length": 5217,
+        "timestamp": 29.46041226387024
+      },
+      {
+        "round": 1,
+        "event": "fetch_page",
+        "url": "https://www.macrotrends.net/global-metrics/cities/21228/delhi/population",
+        "title": "Delhi, India Metro Area Population (1950-2026)",
+        "success": false,
+        "error": "HTTP 403",
+        "text_length": 0,
+        "timestamp": 30.595409393310547
+      },
+      {
+        "round": 1,
+        "event": "evidence_evaluation",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "sufficient": false,
+        "conflicts": "Wikipedia lists 2011 census figures of 16,787,941 and 21,588,000 (city proper vs metro) and notes the NCT population as about 16.8\u202fmillion, while the CEIC source reports a 2011 census figure of 16,368,899 for Delhi, showing disagreement between sources on the exact 2011 census number.",
+        "missing": "The most recent population estimate (e.g., 2023 or 2024) for Delhi (NCT or metro) from a reliable source.",
+        "follow_up_query": "Search query: \"Delhi NCT population estimate 2023",
+        "stop_reason": "Without a recent estimate we cannot fulfill the request to report both the 2011 Census figure and the most recent estimate.",
+        "sources_evaluated": 2,
+        "timestamp": 44.10980153083801
+      },
+      {
+        "round": 1,
+        "event": "conflicts_detected",
+        "conflicts": "Wikipedia lists 2011 census figures of 16,787,941 and 21,588,000 (city proper vs metro) and notes the NCT population as about 16.8\u202fmillion, while the CEIC source reports a 2011 census figure of 16,368,899 for Delhi, showing disagreement between sources on the exact 2011 census number.",
+        "timestamp": 44.10982847213745
+      },
+      {
+        "round": 1,
+        "event": "follow_up_search",
+        "query": "Search query: \"Delhi NCT population estimate 2023",
+        "reason": "The most recent population estimate (e.g., 2023 or 2024) for Delhi (NCT or metro) from a reliable source.",
+        "timestamp": 44.10983204841614
+      },
+      {
+        "round": 2,
+        "event": "search",
+        "query": "Search query: \"Delhi NCT population estimate 2023",
+        "result_count": 5,
+        "urls": [
+          "https://www.neilsberg.com/insights/topic/delhi-la-population",
+          "https://www.macrotrends.net/global-metrics/cities/21228/delhi/population",
+          "https://www.neilsberg.com/insights/delhi-ny-population-by-year",
+          "https://statisticstimes.com/demographics/india/delhi-population.php",
+          "https://www.census2011.co.in/census/city/49-delhi.html"
+        ],
+        "error": null,
+        "timestamp": 48.441466331481934
+      },
+      {
+        "round": 2,
+        "event": "source_selection",
+        "selected": [
+          {
+            "url": "https://www.macrotrends.net/global-metrics/cities/21228/delhi/population",
+            "title": "Delhi, India Metro Area Population (1950-2026)",
+            "score": 0.935
+          },
+          {
+            "url": "https://www.neilsberg.com/insights/delhi-ny-population-by-year",
+            "title": "Delhi, NY Population by Year - 2024 Update",
+            "score": 0.916
+          },
+          {
+            "url": "https://www.census2011.co.in/census/state/districtlist/delhi.html",
+            "title": "List of districts of Delhi",
+            "score": 0.914
+          }
+        ],
+        "total_candidates": 25,
+        "already_fetched": 2,
+        "timestamp": 48.44162130355835
+      },
+      {
+        "round": 2,
+        "event": "fetch_page",
+        "url": "https://www.macrotrends.net/global-metrics/cities/21228/delhi/population",
+        "title": "Delhi, India Metro Area Population (1950-2026)",
+        "success": false,
+        "error": "HTTP 403",
+        "text_length": 0,
+        "timestamp": 49.168689012527466
+      },
+      {
+        "round": 2,
+        "event": "fetch_page",
+        "url": "https://www.neilsberg.com/insights/delhi-ny-population-by-year",
+        "title": "Delhi, NY Population by Year - 2024 Update",
+        "success": false,
+        "error": "HTTP 403",
+        "text_length": 0,
+        "timestamp": 50.118943214416504
+      },
+      {
+        "round": 2,
+        "event": "fetch_page",
+        "url": "https://www.census2011.co.in/census/state/districtlist/delhi.html",
+        "title": "Districts of Delhi",
+        "success": true,
+        "error": null,
+        "text_length": 1453,
+        "timestamp": 54.18476986885071
+      },
+      {
+        "round": 2,
+        "event": "evidence_evaluation",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "sufficient": false,
+        "conflicts": "Wikipedia and census2011.co.in give the 2011 Census population of Delhi as 16,787,941, while CEIC data reports 16,368,899 for the same year.",
+        "missing": "The most recent population estimate (e.g., 2023 or 2022) for Delhi, to pair with the 2011 Census figure.",
+        "follow_up_query": "Search for \"Delhi population estimate 2023\" or \"Delhi metropolitan population 2023\".",
+        "stop_reason": "Without a recent estimate and with conflicting 2011 figures, the evidence is insufficient to answer the question fully.",
+        "sources_evaluated": 3,
+        "timestamp": 64.04384589195251
+      },
+      {
+        "round": 2,
+        "event": "conflicts_detected",
+        "conflicts": "Wikipedia and census2011.co.in give the 2011 Census population of Delhi as 16,787,941, while CEIC data reports 16,368,899 for the same year.",
+        "timestamp": 64.04386639595032
+      },
+      {
+        "round": 2,
+        "event": "follow_up_search",
+        "query": "Search for \"Delhi population estimate 2023\" or \"Delhi metropolitan population 2023\".",
+        "reason": "The most recent population estimate (e.g., 2023 or 2022) for Delhi, to pair with the 2011 Census figure.",
+        "timestamp": 64.04386973381042
+      },
+      {
+        "round": 3,
+        "event": "search",
+        "query": "Search for \"Delhi population estimate 2023\" or \"Delhi metropolitan population 2023\".",
+        "result_count": 5,
+        "urls": [
+          "https://www.macrotrends.net/global-metrics/cities/21228/delhi/population",
+          "https://www.neilsberg.com/insights/topic/delhi-la-population",
+          "https://www.neilsberg.com/insights/delhi-la-population-by-year",
+          "https://www.census2011.co.in/census/city/49-delhi.html",
+          "https://en.wikipedia.org/wiki/Delhi"
+        ],
+        "error": null,
+        "timestamp": 68.32118034362793
+      },
+      {
+        "round": 3,
+        "event": "source_selection",
+        "selected": [
+          {
+            "url": "https://www.macrotrends.net/global-metrics/cities/21228/delhi/population",
+            "title": "Delhi, India Metro Area Population (1950-2026)",
+            "score": 0.935
+          },
+          {
+            "url": "https://www.neilsberg.com/insights/delhi-ny-population-by-year",
+            "title": "Delhi, NY Population by Year - 2024 Update",
+            "score": 0.916
+          },
+          {
+            "url": "https://statisticstimes.com/demographics/india/delhi-population.php",
+            "title": "Delhi population 2026 - StatisticsTimes.com",
+            "score": 0.908
+          }
+        ],
+        "total_candidates": 30,
+        "already_fetched": 3,
+        "timestamp": 68.32131600379944
+      },
+      {
+        "round": 3,
+        "event": "fetch_page",
+        "url": "https://www.macrotrends.net/global-metrics/cities/21228/delhi/population",
+        "title": "Delhi, India Metro Area Population (1950-2026)",
+        "success": false,
+        "error": "HTTP 403",
+        "text_length": 0,
+        "timestamp": 69.03922319412231
+      },
+      {
+        "round": 3,
+        "event": "fetch_page",
+        "url": "https://www.neilsberg.com/insights/delhi-ny-population-by-year",
+        "title": "Delhi, NY Population by Year - 2024 Update",
+        "success": false,
+        "error": "HTTP 403",
+        "text_length": 0,
+        "timestamp": 69.79190063476562
+      },
+      {
+        "round": 3,
+        "event": "fetch_page",
+        "url": "https://statisticstimes.com/demographics/india/delhi-population.php",
+        "title": "Population of Delhi",
+        "success": true,
+        "error": null,
+        "text_length": 7486,
+        "timestamp": 70.69430541992188
+      },
+      {
+        "round": 3,
+        "event": "evidence_evaluation",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "sufficient": true,
+        "conflicts": "CEIC reports the 2011 Census population of Delhi as 16,368,899, while Wikipedia, Census2011.co.in, and Statisticstimes cite approximately 16,787,941 (or 1.68\u202fcrore), with Statisticstimes\u2019 table showing 16,914,000 for 2011.",
+        "missing": "nothing critical",
+        "follow_up_query": null,
+        "stop_reason": "Research can stop as we have the required 2011 census figure and a recent estimate, despite minor source discrepancies.",
+        "sources_evaluated": 4,
+        "timestamp": 82.53465843200684
+      },
+      {
+        "round": 3,
+        "event": "conflicts_detected",
+        "conflicts": "CEIC reports the 2011 Census population of Delhi as 16,368,899, while Wikipedia, Census2011.co.in, and Statisticstimes cite approximately 16,787,941 (or 1.68\u202fcrore), with Statisticstimes\u2019 table showing 16,914,000 for 2011.",
+        "timestamp": 82.53476142883301
+      },
+      {
+        "round": 3,
+        "event": "research_complete",
+        "reason": "Research can stop as we have the required 2011 census figure and a recent estimate, despite minor source discrepancies.",
+        "sources_collected": 4,
+        "timestamp": 82.53477334976196
+      },
+      {
+        "round": 4,
+        "event": "final_answer",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "evidence_sources": 4,
+        "timestamp": 94.95380902290344
+      }
+    ],
+    "cost": {
+      "input_tokens": 18492,
+      "output_tokens": 6111,
+      "model": "nvidia/nemotron-3-super-120b-a12b:free",
+      "cost_usd": 0.0
+    }
+  },
+  "audit": {
+    "analyst_question": "What is the population of Delhi? Report the figure from the 2011 Census and the most recent estimate, noting any differences between sources.",
+    "verdicts": [
+      {
+        "claim": {
+          "text": "- The 2011 Census of India recorded the population of the National Capital Territory (NCT) of Delhi as **16,787,941** persons.",
+          "citation": "https://en.wikipedia.org/wiki/Delhi",
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "supported",
+        "evidence": "The source page\u2019s population table for 2011 lists the National Capital Territory of Delhi\u2019s population as 16,787,941.",
+        "source_excerpt": "Population (2011)[7] | 16,787,941",
+        "source_url": "https://en.wikipedia.org/wiki/Delhi"
+      },
+      {
+        "claim": {
+          "text": "This figure is also reported by the Census\u202f2011.co.in district list for Delhi.",
+          "citation": "https://www.census2011.co.in/census/state/districtlist/delhi.html",
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "unsupported",
+        "evidence": "The source page does not identify which specific figure the claim refers to, so we cannot confirm its presence.",
+        "source_excerpt": "",
+        "source_url": "https://www.census2011.co.in/census/state/districtlist/delhi.html"
+      },
+      {
+        "claim": {
+          "text": "- A different CEIC dataset, which cites the Office of the Registrar General & Census Commissioner, India, lists the 2011 Census population for \u201cDelhi: Delhi\u201d as **16,368,899** persons.",
+          "citation": "https://www.ceicdata.com/en/india/census-population-by-towns-and-urban-agglomerations-nct-of-delhi/census-population-delhi-delhi",
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "supported",
+        "evidence": "The source page states that the 2011 Census population for Delhi: Delhi was 16,368,899 persons and that this data is reported by the Office of the Registrar General & Census Commissioner, India.",
+        "source_excerpt": "\"Census: Population: Delhi: Delhi data was reported at 16,368,899.000 Person in 03-01-2011.... Census: Population: Delhi: Delhi data remains active status in CEIC and is reported by Office of the Registrar General & Census Commissioner, India.\"",
+        "source_url": "https://www.ceicdata.com/en/india/census-population-by-towns-and-urban-agglomerations-nct-of-delhi/census-population-delhi-delhi"
+      },
+      {
+        "claim": {
+          "text": "The discrepancy likely reflects different geographic delimitations (e.g., Delhi district/core city versus the full NCT).",
+          "citation": null,
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "no_citation",
+        "evidence": "Claim has no cited source.",
+        "source_excerpt": "",
+        "source_url": null
+      },
+      {
+        "claim": {
+          "text": "- The most recent official estimate available is the projection for **1\u202fJuly\u202f2023** from the Technical Group of the National Commission on Population, which puts Delhi\u2019s population at **21,490,000** (21.49\u202fmillion).",
+          "citation": "https://statisticstimes.com/demographics/india/delhi-population.php",
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "contradicted",
+        "evidence": "The source page also provides a more recent projection from the Technical Group for 1\u202fJuly\u202f2026, showing Delhi\u2019s population at 22,674,000, which contradicts the claim that the most recent official estimate is the 2023 projection.",
+        "source_excerpt": "\"As per the report of the Technical Group of the National Commission, the population of Delhi is projected to be 22,674,000, or 22.67 million, or 2.27 crore, as of July 1, 2026.\"",
+        "source_url": "https://statisticstimes.com/demographics/india/delhi-population.php"
+      }
+    ],
+    "summary": "5 claim(s) audited. 2 supported. 1 unsupported. 1 contradicted. 1 had no citation. Reliability: LOW \u2014 1 claim(s) contradicted by sources.",
+    "limitations": [],
+    "cost": {
+      "input_tokens": 7473,
+      "output_tokens": 2206,
+      "model": "nvidia/nemotron-3-super-120b-a12b:free",
+      "cost_usd": 0.0
+    }
+  },
+  "analysis": {
+    "conflict_events": [
+      {
+        "round": 1,
+        "event": "conflicts_detected",
+        "conflicts": "Wikipedia lists 2011 census figures of 16,787,941 and 21,588,000 (city proper vs metro) and notes the NCT population as about 16.8\u202fmillion, while the CEIC source reports a 2011 census figure of 16,368,899 for Delhi, showing disagreement between sources on the exact 2011 census number.",
+        "timestamp": 44.10982847213745
+      },
+      {
+        "round": 2,
+        "event": "conflicts_detected",
+        "conflicts": "Wikipedia and census2011.co.in give the 2011 Census population of Delhi as 16,787,941, while CEIC data reports 16,368,899 for the same year.",
+        "timestamp": 64.04386639595032
+      },
+      {
+        "round": 3,
+        "event": "conflicts_detected",
+        "conflicts": "CEIC reports the 2011 Census population of Delhi as 16,368,899, while Wikipedia, Census2011.co.in, and Statisticstimes cite approximately 16,787,941 (or 1.68\u202fcrore), with Statisticstimes\u2019 table showing 16,914,000 for 2011.",
+        "timestamp": 82.53476142883301
+      }
+    ],
+    "evidence_evaluations": [
+      {
+        "round": 1,
+        "sufficient": false,
+        "conflicts": "Wikipedia lists 2011 census figures of 16,787,941 and 21,588,000 (city proper vs metro) and notes the NCT population as about 16.8\u202fmillion, while the CEIC source reports a 2011 census figure of 16,368,899 for Delhi, showing disagreement between sources on the exact 2011 census number.",
+        "missing": "The most recent population estimate (e.g., 2023 or 2024) for Delhi (NCT or metro) from a reliable source."
+      },
+      {
+        "round": 2,
+        "sufficient": false,
+        "conflicts": "Wikipedia and census2011.co.in give the 2011 Census population of Delhi as 16,787,941, while CEIC data reports 16,368,899 for the same year.",
+        "missing": "The most recent population estimate (e.g., 2023 or 2022) for Delhi, to pair with the 2011 Census figure."
+      },
+      {
+        "round": 3,
+        "sufficient": true,
+        "conflicts": "CEIC reports the 2011 Census population of Delhi as 16,368,899, while Wikipedia, Census2011.co.in, and Statisticstimes cite approximately 16,787,941 (or 1.68\u202fcrore), with Statisticstimes\u2019 table showing 16,914,000 for 2011.",
+        "missing": "nothing critical"
+      }
+    ],
+    "total_claims": 5,
+    "cited_claims": 4,
+    "fetch_events": 9,
+    "search_events": 6,
+    "conflicts_detected": true,
+    "conflict_text": "Wikipedia lists 2011 census figures of 16,787,941 and 21,588,000 (city proper vs metro) and notes the NCT population as about 16.8\u202fmillion, while the CEIC source reports a 2011 census figure of 16,368,899 for Delhi, showing disagreement between sources on the exact 2011 census number.",
+    "analyst_model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "analyst_latency_s": 95.3,
+    "total_latency_s": 124.6
+  }
+}
