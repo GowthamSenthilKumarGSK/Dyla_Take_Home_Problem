@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import re
 import time
-from openai import OpenAI, RateLimitError, APIStatusError
+from openai import OpenAI, RateLimitError, APIStatusError, APITimeoutError, APIConnectionError
 
 import config
 from models import SearchResponse, PageContent, Claim, CostRecord, AnalystAnswer, Fact
@@ -48,23 +48,52 @@ SOURCES:
 
 PLANNING_PROMPT = """\
 You are a research analyst. Given the following research question, produce a
-short plan (2-4 bullet points) describing:
-- What specific facts you need to find
-- What search queries you will use
-- How you will cross-check claims
+short research plan.
 
-Respond with ONLY the plan, no other text. Do not answer the question yet.
+Respond in EXACTLY this format (no other text):
+
+QUERIES:
+- "first search query"
+- "second search query"
+(2-4 specific search queries)
+
+PLAN:
+- What specific facts you need to find
+- How you will verify or cross-check claims
 {memory_section}
 Question: {question}
 """
 
+EVIDENCE_EVAL_PROMPT = """\
+You are evaluating whether collected web evidence is sufficient to answer a
+research question accurately.
+
+Question: {question}
+
+Evidence collected from {n_sources} source(s):
+{evidence_summaries}
+
+Assess the evidence and respond in EXACTLY this format:
+SUFFICIENT: YES or NO
+CONFLICTS: describe any disagreements between sources, or "none"
+MISSING: what specific information is still needed, or "nothing critical"
+FOLLOW_UP: a specific search query to fill the gap, or "none"
+STOP_REASON: one sentence explaining why research should stop or continue
+"""
+
 MAX_TOOL_ROUNDS = 15
+MAX_RESEARCH_ROUNDS = 3
+MAX_SOURCES_PER_ROUND = 3
+MAX_EVIDENCE_CHARS = 3000
+
+CLOUD_TIMEOUT = 30
+OLLAMA_TIMEOUT = 120
 
 
 def _is_provider_error(exc: Exception) -> bool:
     """True for errors indicating the model/provider is temporarily unavailable.
     False for auth errors (401), bad requests (400), or application errors."""
-    if isinstance(exc, RateLimitError):
+    if isinstance(exc, (RateLimitError, APITimeoutError, APIConnectionError)):
         return True
     if isinstance(exc, APIStatusError) and exc.status_code in (502, 503, 529):
         return True
@@ -139,7 +168,8 @@ def _is_retriable(exc: Exception) -> bool:
 
 
 def _make_ollama_client() -> OpenAI:
-    return OpenAI(api_key="ollama", base_url=config.OLLAMA_BASE_URL)
+    return OpenAI(api_key="ollama", base_url=config.OLLAMA_BASE_URL,
+                  timeout=OLLAMA_TIMEOUT, max_retries=0)
 
 
 def _call_llm(client: OpenAI, model: str, messages: list,
@@ -283,22 +313,171 @@ def _generate_plan(client: OpenAI, model: str, question: str,
     return plan_text, used_client, used_model
 
 
+def _parse_plan_queries(plan_text: str) -> tuple[list[str], str]:
+    """Parse structured plan into (search_queries, plan_body).
+    Falls back to extracting quoted strings if format is not followed."""
+    queries: list[str] = []
+    plan_lines: list[str] = []
+    in_queries = False
+    in_plan = False
+
+    for line in plan_text.strip().splitlines():
+        stripped = line.strip()
+        if stripped.upper().startswith('QUERIES:'):
+            in_queries = True
+            in_plan = False
+            continue
+        elif stripped.upper().startswith('PLAN:'):
+            in_queries = False
+            in_plan = True
+            continue
+
+        if in_queries:
+            quoted = re.findall(r'"([^"]+)"', stripped)
+            if quoted:
+                queries.extend(quoted)
+            else:
+                clean = stripped.lstrip('-•*0123456789.').strip()
+                if clean and len(clean) > 5:
+                    queries.append(clean)
+        elif in_plan:
+            plan_lines.append(stripped)
+
+    plan_body = '\n'.join(plan_lines) if plan_lines else plan_text
+
+    if not queries:
+        queries = re.findall(r'"([^"]{5,})"', plan_text)
+
+    return queries[:6], plan_body
+
+
+def _select_sources(search_results: list, already_fetched: set,
+                    max_sources: int = MAX_SOURCES_PER_ROUND) -> list[dict]:
+    """Deterministically select the best sources to fetch based on
+    Tavily relevance score and domain quality heuristics."""
+    candidates = []
+    seen_urls: set[str] = set()
+
+    for r in search_results:
+        if r.url in already_fetched or r.url in seen_urls:
+            continue
+        seen_urls.add(r.url)
+
+        score = r.score or 0.5
+        domain = r.url.lower()
+
+        if any(d in domain for d in ['.gov', '.edu', 'wikipedia.org']):
+            score += 0.15
+        elif any(d in domain for d in ['.org', 'reuters.com', 'bloomberg.com',
+                                        'bbc.com', 'economictimes.com']):
+            score += 0.08
+
+        if any(d in domain for d in ['pinterest.com', 'quora.com']):
+            score -= 0.15
+
+        candidates.append({
+            'url': r.url,
+            'title': r.title,
+            'snippet': r.snippet,
+            'score': round(score, 3),
+            'original_score': r.score,
+        })
+
+    candidates.sort(key=lambda x: x['score'], reverse=True)
+    return candidates[:max_sources]
+
+
+def _evaluate_evidence(question: str, evidence: dict,
+                       client, model, trace, round_num, start_time,
+                       total_cost) -> tuple[dict, str, 'OpenAI']:
+    """LLM call to assess whether collected evidence is sufficient."""
+    summaries = []
+    for url, info in evidence.items():
+        preview = info['text'][:MAX_EVIDENCE_CHARS]
+        summaries.append(f"Source: {url}\nTitle: {info['title']}\nContent:\n{preview}")
+
+    evidence_text = "\n---\n".join(summaries) if summaries else "No evidence collected."
+
+    messages = [{"role": "user", "content": EVIDENCE_EVAL_PROMPT.format(
+        question=question,
+        n_sources=len(evidence),
+        evidence_summaries=evidence_text,
+    )}]
+
+    response, used_model, used_client = _call_llm(
+        client, model, messages, trace,
+        round_num=round_num, start_time=start_time,
+    )
+
+    if response.usage:
+        rc = _track_cost(response.usage, used_model)
+        total_cost.input_tokens += rc.input_tokens
+        total_cost.output_tokens += rc.output_tokens
+        total_cost.cost_usd += rc.cost_usd
+
+    eval_text = response.choices[0].message.content or ""
+    result = _parse_evaluation(eval_text)
+
+    trace.append({
+        "round": round_num,
+        "event": "evidence_evaluation",
+        "model": used_model,
+        "sufficient": result['sufficient'],
+        "conflicts": result['conflicts'],
+        "missing": result['missing'],
+        "follow_up_query": result['follow_up_query'],
+        "stop_reason": result['stop_reason'],
+        "sources_evaluated": len(evidence),
+        "timestamp": time.time() - start_time,
+    })
+
+    return result, used_model, used_client
+
+
+def _parse_evaluation(text: str) -> dict:
+    """Parse the structured evidence evaluation response."""
+    result = {
+        'sufficient': False,
+        'conflicts': 'none',
+        'missing': '',
+        'follow_up_query': None,
+        'stop_reason': '',
+    }
+
+    for line in text.strip().splitlines():
+        stripped = line.strip()
+        upper = stripped.upper()
+        if upper.startswith('SUFFICIENT:'):
+            val = stripped.split(':', 1)[1].strip().upper()
+            result['sufficient'] = 'YES' in val
+        elif upper.startswith('CONFLICTS:'):
+            result['conflicts'] = stripped.split(':', 1)[1].strip()
+        elif upper.startswith('MISSING:'):
+            result['missing'] = stripped.split(':', 1)[1].strip()
+        elif upper.startswith('FOLLOW_UP:') or upper.startswith('FOLLOW-UP:'):
+            val = stripped.split(':', 1)[1].strip()
+            if val.lower() not in ('none', 'n/a', '') and len(val) > 3:
+                result['follow_up_query'] = val.strip('"\'')
+        elif upper.startswith('STOP_REASON:'):
+            result['stop_reason'] = stripped.split(':', 1)[1].strip()
+
+    return result
+
+
 def run_analyst(question: str, model: str | None = None,
                 memory: EntityMemory | None = None) -> AnalystAnswer:
-    """Run the analyst agent on a single question. Returns the structured
-    answer together with the full tool-call trace."""
+    """Run the analyst agent with evidence-aware research loop.
+
+    Flow: Plan → Search → Select sources → Fetch → Evaluate evidence
+    → (follow-up search or generate answer)."""
 
     model = model or config.ANALYST_MODEL
     client = OpenAI(
         api_key=config.OPENROUTER_API_KEY,
         base_url=config.OPENROUTER_BASE_URL,
+        timeout=CLOUD_TIMEOUT,
+        max_retries=0,
     )
-
-    # Include memory_lookup tool only when memory is provided
-    if memory:
-        tools = list(TOOL_DEFINITIONS)
-    else:
-        tools = [t for t in TOOL_DEFINITIONS if t["function"]["name"] != "memory_lookup"]
 
     trace: list[dict] = []
     total_cost = CostRecord(model=model)
@@ -321,122 +500,255 @@ def run_analyst(question: str, model: str | None = None,
                     "timestamp": time.time() - start_time,
                 })
 
-    # --- Step 1: Explicit planning (no tools available) ---
-    plan, client, model = _generate_plan(
+    # --- Step 1: Planning with structured queries ---
+    plan_text, client, model = _generate_plan(
         client, model, question, trace, start_time, total_cost,
         memory_context=memory_context,
     )
 
-    # --- Step 2: Research loop with tools ---
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": (
-            f"Research question: {question}\n\n"
-            f"Your research plan:\n{plan}\n\n"
-            "Now execute the plan using the available tools. "
-            "When you have enough evidence, give your final answer."
-        )},
-    ]
+    search_queries, plan_body = _parse_plan_queries(plan_text)
+    if not search_queries:
+        search_queries = [question]
 
-    for round_num in range(1, MAX_TOOL_ROUNDS + 1):
-        response, used_model, client = _call_llm(
-            client, model, messages, trace, round_num, start_time,
-            tools=tools,
+    trace.append({
+        "round": 0,
+        "event": "parsed_queries",
+        "queries": search_queries,
+        "timestamp": time.time() - start_time,
+    })
+
+    # --- Step 2: Evidence-aware research loop ---
+    collected_evidence: dict[str, dict] = {}
+    all_search_results: list = []
+    evaluation: dict | None = None
+
+    for research_round in range(1, MAX_RESEARCH_ROUNDS + 1):
+        # 2a: Execute searches
+        for query in search_queries:
+            results = web_search(query)
+            result_urls = [r.url for r in results.results] if not results.error else []
+            trace.append({
+                "round": research_round,
+                "event": "search",
+                "query": query,
+                "result_count": len(results.results),
+                "urls": result_urls,
+                "error": results.error,
+                "timestamp": time.time() - start_time,
+            })
+            if not results.error:
+                all_search_results.extend(results.results)
+
+        # 2b: Select sources (deterministic — no LLM call)
+        selected = _select_sources(
+            all_search_results, set(collected_evidence.keys()),
         )
-        model = used_model
+        trace.append({
+            "round": research_round,
+            "event": "source_selection",
+            "selected": [{"url": s["url"], "title": s["title"],
+                         "score": s["score"]} for s in selected],
+            "total_candidates": len(all_search_results),
+            "already_fetched": len(collected_evidence),
+            "timestamp": time.time() - start_time,
+        })
 
-        choice = response.choices[0]
-        msg = choice.message
+        if not selected:
+            trace.append({
+                "round": research_round,
+                "event": "research_complete",
+                "reason": "No new sources to fetch",
+                "sources_collected": len(collected_evidence),
+                "timestamp": time.time() - start_time,
+            })
+            break
 
-        # Track cost
-        if response.usage:
-            rc = _track_cost(response.usage, used_model)
-            total_cost.input_tokens += rc.input_tokens
-            total_cost.output_tokens += rc.output_tokens
-            total_cost.cost_usd += rc.cost_usd
-
-        # If the model wants to call tools
-        if msg.tool_calls:
-            messages.append(msg)
-
-            for tc in msg.tool_calls:
-                fn_name = tc.function.name
-                fn_args = json.loads(tc.function.arguments)
-
-                trace_entry = {
-                    "round": round_num,
-                    "tool": fn_name,
-                    "arguments": fn_args,
-                    "model": used_model,
-                    "timestamp": time.time() - start_time,
+        # 2c: Fetch selected pages
+        for source in selected:
+            page = fetch_page(source["url"])
+            trace.append({
+                "round": research_round,
+                "event": "fetch_page",
+                "url": source["url"],
+                "title": page.title or source["title"],
+                "success": not bool(page.error),
+                "error": page.error,
+                "text_length": len(page.text) if page.text else 0,
+                "timestamp": time.time() - start_time,
+            })
+            if not page.error and page.text.strip():
+                collected_evidence[source["url"]] = {
+                    "title": page.title or source["title"],
+                    "text": page.text,
+                    "snippet": source.get("snippet", ""),
                 }
 
-                result_str = _execute_tool_call(fn_name, fn_args, memory=memory)
-                trace_entry["result_preview"] = result_str[:1000]
-                trace.append(trace_entry)
-
-                if fn_name == "memory_lookup" and "No prior knowledge" not in result_str:
-                    memory_used = True
-
-                messages.append({
-                    "role": "tool",
-                    "tool_call_id": tc.id,
-                    "content": result_str,
-                })
-
-        # If the model returns a final text answer (no tool calls)
-        elif msg.content:
+        if not collected_evidence:
             trace.append({
-                "round": round_num,
-                "event": "final_answer",
-                "model": used_model,
+                "round": research_round,
+                "event": "research_complete",
+                "reason": "All page fetches failed",
+                "sources_collected": 0,
+                "timestamp": time.time() - start_time,
+            })
+            break
+
+        # 2d: Evaluate evidence (LLM call)
+        evaluation, model, client = _evaluate_evidence(
+            question, collected_evidence, client, model, trace,
+            round_num=research_round, start_time=start_time,
+            total_cost=total_cost,
+        )
+
+        # 2e: Decision
+        has_conflicts = (evaluation['conflicts']
+                        and evaluation['conflicts'].lower() != 'none')
+
+        if has_conflicts:
+            trace.append({
+                "round": research_round,
+                "event": "conflicts_detected",
+                "conflicts": evaluation['conflicts'],
                 "timestamp": time.time() - start_time,
             })
 
-            answer_text = msg.content
-            claims, sources, summary = _parse_answer(answer_text)
-
-            degraded_reason = _is_degraded_answer(answer_text, question)
-            if degraded_reason:
-                trace.append({
-                    "round": round_num,
-                    "event": "degraded_answer",
-                    "reason": degraded_reason,
-                    "timestamp": time.time() - start_time,
-                })
-
-            if memory_used:
-                for c in claims:
-                    c.from_memory = True
-
-            total_cost.model = used_model
-            answer = AnalystAnswer(
-                question=question,
-                plan=plan,
-                claims=claims,
-                summary=summary,
-                sources_used=sources,
-                tool_trace=trace,
-                cost=total_cost,
-            )
-
-            if memory and not degraded_reason:
-                _store_entities(answer, memory)
-
-            return answer
-
-        else:
-            trace.append({"round": round_num, "event": "empty_response"})
+        if evaluation['sufficient']:
+            trace.append({
+                "round": research_round,
+                "event": "research_complete",
+                "reason": evaluation['stop_reason'] or "Evidence sufficient",
+                "sources_collected": len(collected_evidence),
+                "timestamp": time.time() - start_time,
+            })
             break
 
-    # If we hit the max rounds without a final answer
-    return AnalystAnswer(
+        if evaluation.get('follow_up_query'):
+            search_queries = [evaluation['follow_up_query']]
+            trace.append({
+                "round": research_round,
+                "event": "follow_up_search",
+                "query": evaluation['follow_up_query'],
+                "reason": evaluation.get('missing', ''),
+                "timestamp": time.time() - start_time,
+            })
+        else:
+            trace.append({
+                "round": research_round,
+                "event": "research_complete",
+                "reason": "Insufficient evidence but no follow-up suggested",
+                "sources_collected": len(collected_evidence),
+                "timestamp": time.time() - start_time,
+            })
+            break
+    else:
+        trace.append({
+            "round": MAX_RESEARCH_ROUNDS,
+            "event": "research_complete",
+            "reason": f"Maximum research rounds ({MAX_RESEARCH_ROUNDS}) reached",
+            "sources_collected": len(collected_evidence),
+            "timestamp": time.time() - start_time,
+        })
+
+    # --- Step 3: Generate final answer from evidence ---
+    conflict_note = ""
+    if evaluation and evaluation.get('conflicts') and evaluation['conflicts'].lower() != 'none':
+        conflict_note = (
+            "\n\nIMPORTANT — Conflicting information detected between sources:\n"
+            f"{evaluation['conflicts']}\n"
+            "Address these conflicts: resolve using stronger/more recent evidence, "
+            "or explicitly report the disagreement."
+        )
+
+    evidence_block = ""
+    for url, info in collected_evidence.items():
+        preview = info['text'][:4000]
+        evidence_block += f"\n\nSource: {url}\nTitle: {info['title']}\n{preview}\n"
+
+    memory_note = ""
+    if memory_context:
+        memory_note = (
+            "\n\nPreviously known from earlier research (still cite fresh sources):\n"
+            f"{memory_context}"
+        )
+
+    answer_messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": (
+            f"Research question: {question}\n\n"
+            f"Your research plan:\n{plan_text}\n\n"
+            f"Evidence collected from {len(collected_evidence)} source(s):"
+            f"{evidence_block}"
+            f"{conflict_note}"
+            f"{memory_note}\n\n"
+            "Based on the evidence above, provide your final answer. "
+            "Cite every factual claim with the source URL in [brackets]. "
+            "If evidence is insufficient for any part, say so explicitly."
+        )},
+    ]
+
+    response, used_model, client = _call_llm(
+        client, model, answer_messages, trace,
+        round_num=MAX_RESEARCH_ROUNDS + 1,
+        start_time=start_time,
+    )
+    model = used_model
+
+    if response.usage:
+        rc = _track_cost(response.usage, used_model)
+        total_cost.input_tokens += rc.input_tokens
+        total_cost.output_tokens += rc.output_tokens
+        total_cost.cost_usd += rc.cost_usd
+
+    answer_text = response.choices[0].message.content or ""
+    trace.append({
+        "round": MAX_RESEARCH_ROUNDS + 1,
+        "event": "final_answer",
+        "model": used_model,
+        "evidence_sources": len(collected_evidence),
+        "timestamp": time.time() - start_time,
+    })
+
+    # --- Step 4: Parse and return ---
+    claims, sources, summary = _parse_answer(answer_text)
+
+    degraded_reason = _is_degraded_answer(answer_text, question)
+    if degraded_reason:
+        trace.append({
+            "event": "degraded_answer",
+            "reason": degraded_reason,
+            "timestamp": time.time() - start_time,
+        })
+        if collected_evidence:
+            titles = [info['title'] for info in collected_evidence.values()]
+            summary = (
+                f"Could not generate a natural-language answer. "
+                f"Evidence was collected from {len(titles)} source(s): "
+                + "; ".join(titles[:5]) + "."
+            )
+            claims = []
+            sources = list(collected_evidence.keys())
+        else:
+            summary = "Could not generate an answer — no evidence was collected."
+
+    if memory_used:
+        for c in claims:
+            c.from_memory = True
+
+    total_cost.model = used_model
+    answer = AnalystAnswer(
         question=question,
-        plan=plan,
-        summary="Agent reached maximum tool rounds without a final answer.",
+        plan=plan_text,
+        claims=claims,
+        summary=summary,
+        sources_used=sources,
         tool_trace=trace,
         cost=total_cost,
     )
+
+    if memory and not degraded_reason:
+        _store_entities(answer, memory)
+
+    return answer
 
 
 def _clean_url(url: str) -> str:
@@ -544,6 +856,9 @@ _NONSENSE_MARKERS = [
 
 def _is_degraded_answer(answer_text: str, question: str) -> str | None:
     """Return a short reason if the answer is obviously malformed, else None."""
+    stripped = answer_text.strip()
+    if stripped.startswith("{") and '"query"' in stripped[:500]:
+        return "answer is raw JSON (model echoed tool-call data)"
     lower = answer_text.lower()
     for marker in _NONSENSE_MARKERS:
         if marker in lower:

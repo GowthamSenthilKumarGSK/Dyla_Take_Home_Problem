@@ -10,178 +10,113 @@
   "status": "success",
   "analyst": {
     "question": "What are the main business divisions of Titan Company, and who leads each one?",
-    "plan": "- Find specific facts on Titan Company's organizational structure, focusing on its major business divisions.\n- Use search queries such as \"Titan Company business units,\" \"leadership team Titan Company,\" and \"division heads Titan Company.\"\n- Cross-check claims by reviewing recent annual reports, press releases, or official company websites for accurate information.",
+    "plan": "- Determine Titan Company\u2019s primary business segments (e.g., Watches, Jewellery, Eyewear, Fragrances, etc.) and the executive responsible for each segment.  \n- Use search queries such as \u201cTitan Company business divisions leadership\u201d, \u201cTitan Ltd segment heads\u201d, \u201cTitan Company annual report 2023 divisions\u201d, and \u201cTitan Company CEO of watches/jewellery/eyewear\u201d.  \n- Verify findings by cross\u2011checking the company\u2019s official website, latest annual report or investor presentation, and reputable business news sources or regulatory filings (e.g., BSE/NSE disclosures).",
     "claims": [
       {
-        "text": "### Overview of Titan Company Limited (TITN.NS) **Company Background:**\nTitan Company Limited is an India-based lifestyle company primarily involved in the manufacturing and sale of watches, jewelry, eyewear, and other accessories.",
+        "text": "### Diny, Gaurav & Jeevant Decode Titan's International Business **Title:** Diny, Gaurav & Jeevant Decode Titan's International Business() **Snippet:** Markose (Diny), CEO of Titan Company Ltd's International Business Division (IBD), and Gaurav Midha, Head of Watches within IBD, chat with Jeevant to decode the strategies and challenges faced by Titan in its international business ventures.",
+        "citation": "https://www.youtube.com/watch?v=CT4-0R6MUk0",
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "--- ### TITAN - Where Leaders Can Be Found Everywhere **Title:** TITAN - Where leaders can be found everywhere | Management Innovation eXchange() **Snippet:** Back in 2002, the leadership baton (MD) was handed over to Mr. Bhaskar Bhat from a charismatic leader, Mr. Xerxes Desai, who had established a very profitable watch business for the company and had incubated the jewellery business.",
+        "citation": "https://www.managementexchange.com/story/rap-tap-tap-tap-join-titan-and-you-are-leader",
+        "confidence": "medium",
+        "from_memory": false
+      },
+      {
+        "text": "While it was a great opportunity for Mr. Bhat to take TITAN to the next horizon of growth, he faced several challenges: 1.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "The company operates through several segments including Watches and Wearables, Jewelry, Eyewear, and Others.",
+        "text": "Profitability Erosion:** The newly incubated jewellery business was making substantial losses.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "- **Watches and Wearables Segment:** This segment includes popular brands such as Titan, Fastrack, Sonata, Zoop, Octane, Xylys, Helios, Titan Raga, Fastrack Smart, Nebula, and SF.",
+        "text": "European Market Losses:** TITAN incurred huge losses when entering Europe in the mid-90s.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "- **Jewelry Segment:** The Jewelry segment features well-known brands like Tanishq, Mia, Zoya, and CaratLane.",
+        "text": "Despite these challenges, many ordinary employees at Titan have risen to significant leadership positions due to the company's culture of innovation and empowerment.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "- **Eyewear Segment:** This includes the Titan EyePlus and Fastrack Eyecare brands.",
+        "text": "For example: - Manimaran started as a Diplamo trainee in the casting department and is now the Principal of the Innovation School and heads Quality Assurance for a 2 billion USD jewellery business.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "- **Others Segment:** Includes businesses in Aerospace & Defence, Automation Solutions, Fragrances, Accessories, and Indian dress wear.",
+        "text": "- Saumen, who began as an engineer trainee in maintenance, has progressed to head Supply Chain Management (SCM), Retail, and currently manages all brands of Titan in Northern India.",
         "citation": null,
         "confidence": "medium",
         "from_memory": false
       },
       {
-        "text": "The company also has new business ventures such as Skinn and Taneira.",
+        "text": "These stories highlight how the culture at Titan fosters leadership development from within.",
         "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "Subsidiaries:**\nTitan Company Limited's subsidiaries include Titan Engineering & Automation Limited, Titan Commodity Trading Limited, TCL North America Inc., TEAL USA Inc., and Titan Watch Company Limited Hongkong among others.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "### Recent Developments - **Tata Group Stock Turmoil:** A power struggle between the Indian group\u2019s holding company (Tata Sons) and its owners has led to significant volatility in Tata stock.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "The Shapoorji Pallonji Group, the second-largest shareholder in Tata Sons, proposed a plan to sell part of its stake worth 250 billion rupees ($2.61 billion).",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "- **Leadership Continuity:** India's top manufacturing state Tamil Nadu dropped plans for a second airport in Chennai due to calls for expanding aviation capacity to meet industry needs.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "- **Business Leadership Changes:** The reappointment of N. Chandrasekaran as executive chairman for another five years at Tata Sons has been announced, addressing leadership uncertainty within the 158-year-old conglomerate.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "### Market Performance - **Tata Group Companies' Share Prices:** There have been fluctuations in shares of major Tata companies following these developments and changes in leadership roles.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "The departure of N. Chandrasekaran from his position as chairman at Tata Sons has raised concerns about the continuity and stability of the group, especially given its ongoing challenges in aviation and e-commerce ventures.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "- **India's Economic Indicators:** Indian shares have experienced volatility due to rising oil prices and caution ahead of domestic and U.S. inflation data.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "The decline in Tata Group stocks following N. Chandrasekaran\u2019s decision to step down has added pressure on the market.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "### Conclusion Titan Company Limited operates as a significant player in the lifestyle sector within India, with diverse product offerings across watches, jewelry, eyewear, and other accessories.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "While it faces challenges typical of large conglomerates, its strong brand portfolio and expanding ventures provide a robust foundation for future growth.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "The ongoing leadership changes at Tata Sons and broader economic factors continue to impact market sentiment.",
-        "citation": null,
-        "confidence": "medium",
-        "from_memory": false
-      },
-      {
-        "text": "For the latest updates on Titan Company Limited's stock price and news, you can refer to Reuters().",
-        "citation": "https://www.reuters.com/markets/companies/TITN.NS",
         "confidence": "medium",
         "from_memory": false
       }
     ],
-    "summary": "### Overview of Titan Company Limited (TITN.NS)\n\n**Company Background:**\nTitan Company Limited is an India-based lifestyle company primarily involved in the manufacturing and sale of watches, jewelry, eyewear, and other accessories. The company operates through several segments including Watches and Wearables, Jewelry, Eyewear, and Others.\n\n- **Watches and Wearables Segment:** This segment includes popular brands such as Titan, Fastrack, Sonata, Zoop, Octane, Xylys, Helios, Titan Raga, Fastrack Smart, Nebula, and SF.\n  \n- **Jewelry Segment:** The Jewelry segment features well-known brands like Tanishq, Mia, Zoya, and CaratLane.\n\n- **Eyewear Segment:** This includes the Titan EyePlus and Fastrack Eyecare brands.\n\n- **Others Segment:** Includes businesses in Aerospace & Defence, Automation Solutions, Fragrances, Accessories, and Indian dress wear. The company also has new business ventures such as Skinn and Taneira.\n\n**Subsidiaries:**\nTitan Company Limited's subsidiaries include Titan Engineering & Automation Limited, Titan Commodity Trading Limited, TCL North America Inc., TEAL USA Inc., and Titan Watch Company Limited Hongkong among others.\n\n### Recent Developments\n\n- **Tata Group Stock Turmoil:** A power struggle between the Indian group\u2019s holding company (Tata Sons) and its owners has led to significant volatility in Tata stock. The Shapoorji Pallonji Group, the second-largest shareholder in Tata Sons, proposed a plan to sell part of its stake worth 250 billion rupees ($2.61 billion).\n\n- **Leadership Continuity:** India's top manufacturing state Tamil Nadu dropped plans for a second airport in Chennai due to calls for expanding aviation capacity to meet industry needs.\n\n- **Business Leadership Changes:** The reappointment of N. Chandrasekaran as executive chairman for another five years at Tata Sons has been announced, addressing leadership uncertainty within the 158-year-old conglomerate.\n\n### Market Performance\n\n- **Tata Group Companies' Share Prices:** There have been fluctuations in shares of major Tata companies following these developments and changes in leadership roles. The departure of N. Chandrasekaran from his position as chairman at Tata Sons has raised concerns about the continuity and stability of the group, especially given its ongoing challenges in aviation and e-commerce ventures.\n\n- **India's Economic Indicators:** Indian shares have experienced volatility due to rising oil prices and caution ahead of domestic and U.S. inflation data. The decline in Tata Group stocks following N. Chandrasekaran\u2019s decision to step down has added pressure on the market.\n\n### Conclusion\n\nTitan Company Limited operates as a significant player in the lifestyle sector within India, with diverse product offerings across watches, jewelry, eyewear, and other accessories. While it faces challenges typical of large conglomerates, its strong brand portfolio and expanding ventures provide a robust foundation for future growth. The ongoing leadership changes at Tata Sons and broader economic factors continue to impact market sentiment.\n\nFor the latest updates on Titan Company Limited's stock price and news, you can refer to [Reuters](https://www.reuters.com/markets/companies/TITN.NS).",
+    "summary": "### Diny, Gaurav & Jeevant Decode Titan's International Business\n\n**Title:** [Diny, Gaurav & Jeevant Decode Titan's International Business](https://www.youtube.com/watch?v=CT4-0R6MUk0)\n\n**Snippet:** Markose (Diny), CEO of Titan Company Ltd's International Business Division (IBD), and Gaurav Midha, Head of Watches within IBD, chat with [Jeevant] to decode the strategies and challenges faced by Titan in its international business ventures.\n\n---\n\n### TITAN - Where Leaders Can Be Found Everywhere\n\n**Title:** [TITAN - Where leaders can be found everywhere | Management Innovation eXchange](https://www.managementexchange.com/story/rap-tap-tap-tap-join-titan-and-you-are-leader)\n\n**Snippet:** Back in 2002, the leadership baton (MD) was handed over to Mr. Bhaskar Bhat from a charismatic leader, Mr. Xerxes Desai, who had established a very profitable watch business for the company and had incubated the jewellery business. While it was a great opportunity for Mr. Bhat to take TITAN to the next horizon of growth, he faced several challenges:\n\n1. **Profitability Erosion:** The newly incubated jewellery business was making substantial losses.\n2. **European Market Losses:** TITAN incurred huge losses when entering Europe in the mid-90s.\n\nDespite these challenges, many ordinary employees at Titan have risen to significant leadership positions due to the company's culture of innovation and empowerment. For example:\n\n- Manimaran started as a Diplamo trainee in the casting department and is now the Principal of the Innovation School and heads Quality Assurance for a 2 billion USD jewellery business.\n- Saumen, who began as an engineer trainee in maintenance, has progressed to head Supply Chain Management (SCM), Retail, and currently manages all brands of Titan in Northern India.\n\nThese stories highlight how the culture at Titan fosters leadership development from within.",
     "sources_used": [
-      "https://www.reuters.com/markets/companies/TITN.NS"
+      "https://www.youtube.com/watch?v=CT4-0R6MUk0",
+      "https://www.managementexchange.com/story/rap-tap-tap-tap-join-titan-and-you-are-leader"
     ],
     "tool_trace": [
       {
         "round": 0,
-        "event": "model_fallback",
-        "from_model": "nvidia/nemotron-3-super-120b-a12b:free",
-        "to_model": "google/gemma-4-31b-it:free",
-        "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3Jl6aKLIaiC4dg8s3fhdvCpIhBu'}",
-        "timestamp": 2.18035888671875
-      },
-      {
-        "round": 0,
-        "event": "ollama_fallback",
-        "from_model": "google/gemma-4-31b-it:free",
-        "to_model": "qwen2.5:7b",
-        "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3Jl6aKLIaiC4dg8s3fhdvCpIhBu'}",
-        "timestamp": 3.6181933879852295
-      },
-      {
-        "round": 0,
         "event": "plan",
-        "model": "qwen2.5:7b",
-        "plan": "- Find specific facts on Titan Company's organizational structure, focusing on its major business divisions.\n- Use search queries such as \"Titan Company business units,\" \"leadership team Titan Company,\" and \"division heads Titan Company.\"\n- Cross-check claims by reviewing recent annual reports, press releases, or official company websites for accurate information.",
-        "timestamp": 18.989500045776367
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "plan": "- Determine Titan Company\u2019s primary business segments (e.g., Watches, Jewellery, Eyewear, Fragrances, etc.) and the executive responsible for each segment.  \n- Use search queries such as \u201cTitan Company business divisions leadership\u201d, \u201cTitan Ltd segment heads\u201d, \u201cTitan Company annual report 2023 divisions\u201d, and \u201cTitan Company CEO of watches/jewellery/eyewear\u201d.  \n- Verify findings by cross\u2011checking the company\u2019s official website, latest annual report or investor presentation, and reputable business news sources or regulatory filings (e.g., BSE/NSE disclosures).",
+        "timestamp": 3.867391586303711
       },
       {
         "round": 1,
         "tool": "web_search",
         "arguments": {
-          "query": "Titan Company business units",
-          "max_results": 5
+          "query": "Titan Company business divisions leadership",
+          "max_results": 10
         },
-        "model": "qwen2.5:7b",
-        "timestamp": 33.79906105995178,
-        "result_preview": "Title: The Titan Corporation | Encyclopedia.com\nURL: https://www.encyclopedia.com/books/politics-and-business-magazines/titan-corporation\nSnippet: Titan was organized into three business groups: Titan Technologies, Titan Systems, and Titan Electronics. Titan Technologies included electro-optics, pulsed power, computational fluid dynamics, and applied mechanics. Titan Systems designed, developed, deployed, and tested highly advanced communications, aerospace, and weapons systems for defense. Titan Electronics provided militarized computers, electronic subsystems, and meteor-burst communications equipment. [...] As of mid-2000 Titan had four core businesses: Titan Systems Corp., Cayenta, Titan Wireless, and SureBeam. It also had an Emerging Technologies group that developed commercial applications for new technologies. The company planned to develop new start-up companies based around these technologies and spin off minority interests in them as a way of raising capital. Titan also conti"
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "timestamp": 5.277390480041504,
+        "result_preview": "Title: Titan Company Announces Leadership Changes: Arun Narayan and Kuruvilla Markose Promotion, ETRetail\nURL: https://retail.economictimes.indiatimes.com/news/apparel-fashion/accessories/titan-elevates-arun-narayan-and-kuruvilla-markose-as-part-of-leadership-realignment/122384812\nSnippet: New Delhi: Titan Company has announced key leadership changes across its senior management to support succession planning and business continuity across its Jewellery and Watches divisions, according to its latest BSE filing.  \n  \nArun Narayan, currently leading the company\u2019s Tanishq India business, will take over as CEO of the Jewellery Division from January 1, 2026. He will replace Ajoy Chawla, who will assume the role of managing director of Titan Company on the same date.  \n  \nKuruvilla Markose, CEO of the International Business Division, will be appointed CEO of the Watches Division effective August 13, 2025. He will succeed Suparna Mitra, who stepped down from the role in May this year.  \n  \n\nA"
+      },
+      {
+        "round": 2,
+        "event": "model_fallback",
+        "from_model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "to_model": "google/gemma-4-31b-it:free",
+        "reason": "RuntimeError: Empty choices in response",
+        "timestamp": 11.538303136825562
+      },
+      {
+        "round": 2,
+        "event": "ollama_fallback",
+        "from_model": "google/gemma-4-31b-it:free",
+        "to_model": "qwen2.5:7b",
+        "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations', 'provider_name': 'Google AI Studio', 'is_byok': False, 'provider_error_code': '429', 'limit_source': 'upstream_provider_shared_pool', 'remedy_hint': 'Retry shortly, add your own provider key (https://openrouter.ai/settings/integrations), or route to another provider with provider routing: https://openrouter.ai/docs/features/provider-routing'}}, 'user_id': 'user_3Jl6aKLIaiC4dg8s3fhdvCpIhBu'}",
+        "timestamp": 14.143474578857422
       },
       {
         "round": 2,
         "event": "final_answer",
         "model": "qwen2.5:7b",
-        "timestamp": 352.6960573196411
+        "timestamp": 346.02217292785645
       }
     ],
     "cost": {
-      "input_tokens": 2855,
-      "output_tokens": 756,
+      "input_tokens": 3132,
+      "output_tokens": 817,
       "model": "qwen2.5:7b",
       "cost_usd": 0.0
     }
@@ -192,7 +127,31 @@
     "verdicts": [
       {
         "claim": {
-          "text": "### Overview of Titan Company Limited (TITN.NS) **Company Background:**\nTitan Company Limited is an India-based lifestyle company primarily involved in the manufacturing and sale of watches, jewelry, eyewear, and other accessories.",
+          "text": "### Diny, Gaurav & Jeevant Decode Titan's International Business **Title:** Diny, Gaurav & Jeevant Decode Titan's International Business() **Snippet:** Markose (Diny), CEO of Titan Company Ltd's International Business Division (IBD), and Gaurav Midha, Head of Watches within IBD, chat with Jeevant to decode the strategies and challenges faced by Titan in its international business ventures.",
+          "citation": "https://www.youtube.com/watch?v=CT4-0R6MUk0",
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "unsupported",
+        "evidence": "The source page only shows generic YouTube footer links and contains no mention of the video title, its speakers, or any discussion of Titan's international business.",
+        "source_excerpt": "",
+        "source_url": "https://www.youtube.com/watch?v=CT4-0R6MUk0"
+      },
+      {
+        "claim": {
+          "text": "--- ### TITAN - Where Leaders Can Be Found Everywhere **Title:** TITAN - Where leaders can be found everywhere | Management Innovation eXchange() **Snippet:** Back in 2002, the leadership baton (MD) was handed over to Mr. Bhaskar Bhat from a charismatic leader, Mr. Xerxes Desai, who had established a very profitable watch business for the company and had incubated the jewellery business.",
+          "citation": "https://www.managementexchange.com/story/rap-tap-tap-tap-join-titan-and-you-are-leader",
+          "confidence": "medium",
+          "from_memory": false
+        },
+        "verdict": "unsupported",
+        "evidence": "The source page does not mention Bhaskar Bhat, Xerxes Desai, or a 2002 handover of the Managing Director role.",
+        "source_excerpt": "",
+        "source_url": "https://www.managementexchange.com/story/rap-tap-tap-tap-join-titan-and-you-are-leader"
+      },
+      {
+        "claim": {
+          "text": "While it was a great opportunity for Mr. Bhat to take TITAN to the next horizon of growth, he faced several challenges: 1.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -204,7 +163,7 @@
       },
       {
         "claim": {
-          "text": "The company operates through several segments including Watches and Wearables, Jewelry, Eyewear, and Others.",
+          "text": "Profitability Erosion:** The newly incubated jewellery business was making substantial losses.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -216,7 +175,7 @@
       },
       {
         "claim": {
-          "text": "- **Watches and Wearables Segment:** This segment includes popular brands such as Titan, Fastrack, Sonata, Zoop, Octane, Xylys, Helios, Titan Raga, Fastrack Smart, Nebula, and SF.",
+          "text": "European Market Losses:** TITAN incurred huge losses when entering Europe in the mid-90s.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -228,7 +187,7 @@
       },
       {
         "claim": {
-          "text": "- **Jewelry Segment:** The Jewelry segment features well-known brands like Tanishq, Mia, Zoya, and CaratLane.",
+          "text": "Despite these challenges, many ordinary employees at Titan have risen to significant leadership positions due to the company's culture of innovation and empowerment.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -240,7 +199,7 @@
       },
       {
         "claim": {
-          "text": "- **Eyewear Segment:** This includes the Titan EyePlus and Fastrack Eyecare brands.",
+          "text": "For example: - Manimaran started as a Diplamo trainee in the casting department and is now the Principal of the Innovation School and heads Quality Assurance for a 2 billion USD jewellery business.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -252,7 +211,7 @@
       },
       {
         "claim": {
-          "text": "- **Others Segment:** Includes businesses in Aerospace & Defence, Automation Solutions, Fragrances, Accessories, and Indian dress wear.",
+          "text": "- Saumen, who began as an engineer trainee in maintenance, has progressed to head Supply Chain Management (SCM), Retail, and currently manages all brands of Titan in Northern India.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -264,7 +223,7 @@
       },
       {
         "claim": {
-          "text": "The company also has new business ventures such as Skinn and Taneira.",
+          "text": "These stories highlight how the culture at Titan fosters leadership development from within.",
           "citation": null,
           "confidence": "medium",
           "from_memory": false
@@ -273,205 +232,69 @@
         "evidence": "Claim has no cited source.",
         "source_excerpt": "",
         "source_url": null
-      },
-      {
-        "claim": {
-          "text": "Subsidiaries:**\nTitan Company Limited's subsidiaries include Titan Engineering & Automation Limited, Titan Commodity Trading Limited, TCL North America Inc., TEAL USA Inc., and Titan Watch Company Limited Hongkong among others.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "### Recent Developments - **Tata Group Stock Turmoil:** A power struggle between the Indian group\u2019s holding company (Tata Sons) and its owners has led to significant volatility in Tata stock.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "The Shapoorji Pallonji Group, the second-largest shareholder in Tata Sons, proposed a plan to sell part of its stake worth 250 billion rupees ($2.61 billion).",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "- **Leadership Continuity:** India's top manufacturing state Tamil Nadu dropped plans for a second airport in Chennai due to calls for expanding aviation capacity to meet industry needs.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "- **Business Leadership Changes:** The reappointment of N. Chandrasekaran as executive chairman for another five years at Tata Sons has been announced, addressing leadership uncertainty within the 158-year-old conglomerate.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "### Market Performance - **Tata Group Companies' Share Prices:** There have been fluctuations in shares of major Tata companies following these developments and changes in leadership roles.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "The departure of N. Chandrasekaran from his position as chairman at Tata Sons has raised concerns about the continuity and stability of the group, especially given its ongoing challenges in aviation and e-commerce ventures.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "- **India's Economic Indicators:** Indian shares have experienced volatility due to rising oil prices and caution ahead of domestic and U.S. inflation data.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "The decline in Tata Group stocks following N. Chandrasekaran\u2019s decision to step down has added pressure on the market.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "### Conclusion Titan Company Limited operates as a significant player in the lifestyle sector within India, with diverse product offerings across watches, jewelry, eyewear, and other accessories.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "While it faces challenges typical of large conglomerates, its strong brand portfolio and expanding ventures provide a robust foundation for future growth.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "The ongoing leadership changes at Tata Sons and broader economic factors continue to impact market sentiment.",
-          "citation": null,
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "no_citation",
-        "evidence": "Claim has no cited source.",
-        "source_excerpt": "",
-        "source_url": null
-      },
-      {
-        "claim": {
-          "text": "For the latest updates on Titan Company Limited's stock price and news, you can refer to Reuters().",
-          "citation": "https://www.reuters.com/markets/companies/TITN.NS",
-          "confidence": "medium",
-          "from_memory": false
-        },
-        "verdict": "source_error",
-        "evidence": "Could not fetch the cited source to verify.",
-        "source_excerpt": "",
-        "source_url": "https://www.reuters.com/markets/companies/TITN.NS"
       }
     ],
-    "summary": "20 claim(s) audited. 19 had no citation. 1 could not be verified (source fetch failed). Reliability: LOW.",
-    "limitations": [
-      "Could not fetch https://www.reuters.com/markets/companies/TITN.NS: HTTP 401"
-    ],
+    "summary": "9 claim(s) audited. 2 unsupported. 7 had no citation. Reliability: LOW.",
+    "limitations": [],
     "cost": {
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "model": "none",
+      "input_tokens": 1570,
+      "output_tokens": 674,
+      "model": "nvidia/nemotron-3-super-120b-a12b:free",
       "cost_usd": 0.0
     }
   },
-  "auditor_model": "none",
+  "auditor_model": "nvidia/nemotron-3-super-120b-a12b:free",
   "metrics": {
-    "analyst_input_tokens": 2855,
-    "analyst_output_tokens": 756,
+    "analyst_input_tokens": 3132,
+    "analyst_output_tokens": 817,
     "analyst_cost_inr": 0.0,
-    "analyst_latency_s": 352.7,
+    "analyst_latency_s": 346.0,
     "analyst_model": "qwen2.5:7b",
-    "auditor_input_tokens": 0,
-    "auditor_output_tokens": 0,
+    "auditor_input_tokens": 1570,
+    "auditor_output_tokens": 674,
     "auditor_cost_inr": 0.0,
-    "auditor_latency_s": 1.8,
-    "auditor_model": "none",
-    "total_latency_s": 354.5,
+    "auditor_latency_s": 13.1,
+    "auditor_model": "nvidia/nemotron-3-super-120b-a12b:free",
+    "total_latency_s": 359.2,
     "total_cost_inr": 0.0,
     "verdicts": {
       "supported": 0,
-      "unsupported": 0,
+      "unsupported": 2,
       "contradicted": 0,
-      "no_citation": 19,
-      "source_error": 1
+      "no_citation": 7,
+      "source_error": 0
     },
-    "memory_entities_before": 0,
-    "memory_entities_after": 1,
+    "memory_entities_before": 1,
+    "memory_entities_after": 3,
     "memory_used": false
   },
   "memory_state": {
-    "titan_company_limited": {
+    "managing_director": {
       "entity_type": "unknown",
       "fact_count": 1,
-      "related": []
+      "related": [
+        "titan_company",
+        "c.k._venkataraman"
+      ]
+    },
+    "jeevant_decode_titan": {
+      "entity_type": "unknown",
+      "fact_count": 1,
+      "related": [
+        "international_business",
+        "titan_company_ltd",
+        "international_business_division",
+        "gaurav_midha"
+      ]
+    },
+    "where_leaders_can_be_found_everywhere": {
+      "entity_type": "unknown",
+      "fact_count": 1,
+      "related": [
+        "management_innovation",
+        "bhaskar_bhat",
+        "xerxes_desai"
+      ]
     }
   }
 }

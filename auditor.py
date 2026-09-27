@@ -10,7 +10,7 @@ from models import (
     AnalystAnswer, AuditReport, AuditVerdict, Claim, CostRecord,
 )
 from tools import fetch_page
-from analyst import _call_llm, _track_cost, _is_provider_error
+from analyst import _call_llm, _track_cost, _is_provider_error, CLOUD_TIMEOUT
 
 VERIFY_PROMPT = """\
 You are a fact-checking auditor. You will be given a CLAIM and the full text
@@ -103,6 +103,8 @@ def run_auditor(answer: AnalystAnswer, model: str | None = None) -> AuditReport:
     client = OpenAI(
         api_key=config.OPENROUTER_API_KEY,
         base_url=config.OPENROUTER_BASE_URL,
+        timeout=CLOUD_TIMEOUT,
+        max_retries=0,
     )
 
     trace: list[dict] = []

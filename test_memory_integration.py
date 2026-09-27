@@ -6,12 +6,51 @@ import tempfile
 import unittest
 from unittest.mock import patch, MagicMock
 
-from models import Claim, CostRecord, AnalystAnswer, Fact
+from models import (
+    Claim, CostRecord, AnalystAnswer, Fact,
+    SearchResult, SearchResponse, PageContent,
+)
 from memory import EntityMemory
 from analyst import (
     _extract_entities, _store_entities, _execute_tool_call, run_analyst,
     _is_substantive, _is_degraded_answer,
 )
+
+
+# ── Mock helpers for the evidence-aware research loop ──
+
+def _mock_response(content, pt=100, ct=20):
+    resp = MagicMock()
+    resp.choices = [MagicMock()]
+    resp.choices[0].message.content = content
+    resp.choices[0].message.tool_calls = None
+    resp.usage = MagicMock(prompt_tokens=pt, completion_tokens=ct)
+    return resp
+
+
+def _std_plan():
+    return _mock_response(
+        'QUERIES:\n- "test query"\n\nPLAN:\n- Find answer'
+    )
+
+
+def _std_eval(sufficient=True):
+    return _mock_response(
+        f"SUFFICIENT: {'YES' if sufficient else 'NO'}\nCONFLICTS: none\n"
+        "MISSING: nothing critical\nFOLLOW_UP: none\nSTOP_REASON: ok"
+    )
+
+
+def _std_search():
+    return SearchResponse(query="test", results=[
+        SearchResult(title="Test", url="https://example.com/data",
+                     snippet="Test data", score=0.9),
+    ])
+
+
+def _std_page():
+    return PageContent(url="https://example.com/data", title="Test",
+                       text="Relevant content for test.")
 
 
 class TestExtractEntities(unittest.TestCase):
@@ -165,56 +204,47 @@ class TestMemoryRecallBeforePlanning(unittest.TestCase):
     def tearDown(self):
         os.unlink(self.tmpfile.name)
 
+    @patch("analyst.fetch_page")
+    @patch("analyst.web_search")
     @patch("analyst._call_llm")
-    def test_memory_context_injected_into_plan(self, mock_llm):
+    def test_memory_context_injected_into_plan(self, mock_llm, mock_search,
+                                                mock_fetch):
         """When memory has relevant entities, context should appear in planning."""
-        plan_response = MagicMock()
-        plan_response.choices = [MagicMock()]
-        plan_response.choices[0].message.content = "- Search for revenue"
-        plan_response.usage = MagicMock(prompt_tokens=100, completion_tokens=20)
-
-        answer_response = MagicMock()
-        answer_response.choices = [MagicMock()]
-        answer_response.choices[0].message.content = (
+        answer_text = (
             "ANSWER:\nRevenue was 40000 crore. [https://example.com/rev]\n\n"
             "SOURCES:\n- https://example.com/rev: revenue data"
         )
-        answer_response.choices[0].message.tool_calls = None
-        answer_response.usage = MagicMock(prompt_tokens=200, completion_tokens=50)
-
         mock_llm.side_effect = [
-            (plan_response, "test-model", MagicMock()),
-            (answer_response, "test-model", MagicMock()),
+            (_std_plan(), "test-model", MagicMock()),
+            (_std_eval(), "test-model", MagicMock()),
+            (_mock_response(answer_text, pt=200, ct=50), "test-model", MagicMock()),
         ]
+        mock_search.return_value = _std_search()
+        mock_fetch.return_value = _std_page()
 
         answer = run_analyst(
             "What was Titan Company's revenue?", memory=self.memory,
         )
 
-        # Verify planning call included memory context
         plan_call_messages = mock_llm.call_args_list[0][0][2]
         plan_text = plan_call_messages[0]["content"]
         self.assertIn("Previously known", plan_text)
         self.assertIn("Ajoy Chawla", plan_text)
 
+    @patch("analyst.fetch_page")
+    @patch("analyst.web_search")
     @patch("analyst._call_llm")
-    def test_no_memory_context_when_no_entities(self, mock_llm):
+    def test_no_memory_context_when_no_entities(self, mock_llm, mock_search,
+                                                 mock_fetch):
         """Questions without recognizable entities should not inject memory."""
-        plan_response = MagicMock()
-        plan_response.choices = [MagicMock()]
-        plan_response.choices[0].message.content = "- Search for answer"
-        plan_response.usage = MagicMock(prompt_tokens=100, completion_tokens=20)
-
-        answer_response = MagicMock()
-        answer_response.choices = [MagicMock()]
-        answer_response.choices[0].message.content = "ANSWER:\n42."
-        answer_response.choices[0].message.tool_calls = None
-        answer_response.usage = MagicMock(prompt_tokens=200, completion_tokens=10)
-
         mock_llm.side_effect = [
-            (plan_response, "test-model", MagicMock()),
-            (answer_response, "test-model", MagicMock()),
+            (_std_plan(), "test-model", MagicMock()),
+            (_std_eval(), "test-model", MagicMock()),
+            (_mock_response("ANSWER:\n42. [https://example.com/data]"),
+             "test-model", MagicMock()),
         ]
+        mock_search.return_value = _std_search()
+        mock_fetch.return_value = _std_page()
 
         answer = run_analyst("what is 2 + 2?", memory=self.memory)
 
@@ -240,27 +270,22 @@ class TestFromMemoryFlag(unittest.TestCase):
     def tearDown(self):
         os.unlink(self.tmpfile.name)
 
+    @patch("analyst.fetch_page")
+    @patch("analyst.web_search")
     @patch("analyst._call_llm")
-    def test_from_memory_true_when_memory_used(self, mock_llm):
+    def test_from_memory_true_when_memory_used(self, mock_llm, mock_search,
+                                                mock_fetch):
         """Claims should have from_memory=True when memory contributed."""
-        plan_response = MagicMock()
-        plan_response.choices = [MagicMock()]
-        plan_response.choices[0].message.content = "- Check revenue"
-        plan_response.usage = MagicMock(prompt_tokens=100, completion_tokens=20)
-
-        answer_response = MagicMock()
-        answer_response.choices = [MagicMock()]
-        answer_response.choices[0].message.content = (
-            "ANSWER:\nRevenue grew. [https://example.com/rev]\n\n"
-            "SOURCES:\n- https://example.com/rev: data"
-        )
-        answer_response.choices[0].message.tool_calls = None
-        answer_response.usage = MagicMock(prompt_tokens=200, completion_tokens=30)
-
         mock_llm.side_effect = [
-            (plan_response, "test-model", MagicMock()),
-            (answer_response, "test-model", MagicMock()),
+            (_std_plan(), "test-model", MagicMock()),
+            (_std_eval(), "test-model", MagicMock()),
+            (_mock_response(
+                "ANSWER:\nRevenue grew. [https://example.com/rev]\n\n"
+                "SOURCES:\n- https://example.com/rev: data"
+            ), "test-model", MagicMock()),
         ]
+        mock_search.return_value = _std_search()
+        mock_fetch.return_value = _std_page()
 
         answer = run_analyst(
             "What was Titan Company's revenue?", memory=self.memory,
@@ -268,24 +293,22 @@ class TestFromMemoryFlag(unittest.TestCase):
         for claim in answer.claims:
             self.assertTrue(claim.from_memory)
 
+    @patch("analyst.fetch_page")
+    @patch("analyst.web_search")
     @patch("analyst._call_llm")
-    def test_from_memory_false_without_memory(self, mock_llm):
+    def test_from_memory_false_without_memory(self, mock_llm, mock_search,
+                                               mock_fetch):
         """Claims should have from_memory=False when no memory is used."""
-        plan_response = MagicMock()
-        plan_response.choices = [MagicMock()]
-        plan_response.choices[0].message.content = "- Search"
-        plan_response.usage = MagicMock(prompt_tokens=100, completion_tokens=10)
-
-        answer_response = MagicMock()
-        answer_response.choices = [MagicMock()]
-        answer_response.choices[0].message.content = "ANSWER:\nSomething."
-        answer_response.choices[0].message.tool_calls = None
-        answer_response.usage = MagicMock(prompt_tokens=200, completion_tokens=10)
-
         mock_llm.side_effect = [
-            (plan_response, "test-model", MagicMock()),
-            (answer_response, "test-model", MagicMock()),
+            (_std_plan(), "test-model", MagicMock()),
+            (_std_eval(), "test-model", MagicMock()),
+            (_mock_response(
+                "ANSWER:\nSomething happened. [https://example.com/data]\n\n"
+                "SOURCES:\n- https://example.com/data: info"
+            ), "test-model", MagicMock()),
         ]
+        mock_search.return_value = _std_search()
+        mock_fetch.return_value = _std_page()
 
         answer = run_analyst("What was Titan Company's revenue?", memory=None)
         for claim in answer.claims:
@@ -305,24 +328,21 @@ class TestEmptyMemory(unittest.TestCase):
     def tearDown(self):
         os.unlink(self.tmpfile.name)
 
+    @patch("analyst.fetch_page")
+    @patch("analyst.web_search")
     @patch("analyst._call_llm")
-    def test_empty_memory_no_recall(self, mock_llm):
+    def test_empty_memory_no_recall(self, mock_llm, mock_search, mock_fetch):
         """Empty memory should not inject context or set from_memory."""
-        plan_response = MagicMock()
-        plan_response.choices = [MagicMock()]
-        plan_response.choices[0].message.content = "- Search"
-        plan_response.usage = MagicMock(prompt_tokens=100, completion_tokens=10)
-
-        answer_response = MagicMock()
-        answer_response.choices = [MagicMock()]
-        answer_response.choices[0].message.content = "ANSWER:\nData."
-        answer_response.choices[0].message.tool_calls = None
-        answer_response.usage = MagicMock(prompt_tokens=200, completion_tokens=10)
-
         mock_llm.side_effect = [
-            (plan_response, "test-model", MagicMock()),
-            (answer_response, "test-model", MagicMock()),
+            (_std_plan(), "test-model", MagicMock()),
+            (_std_eval(), "test-model", MagicMock()),
+            (_mock_response(
+                "ANSWER:\nData found. [https://example.com/data]\n\n"
+                "SOURCES:\n- https://example.com/data: info"
+            ), "test-model", MagicMock()),
         ]
+        mock_search.return_value = _std_search()
+        mock_fetch.return_value = _std_page()
 
         answer = run_analyst(
             "What is Titan Company's revenue?", memory=self.memory,
@@ -335,7 +355,6 @@ class TestEmptyMemory(unittest.TestCase):
         for claim in answer.claims:
             self.assertFalse(claim.from_memory)
 
-        # Trace should not have memory_recall event
         events = [e.get("event") for e in answer.tool_trace]
         self.assertNotIn("memory_recall", events)
 
@@ -409,27 +428,24 @@ class TestDegradedAnswerSkipsMemoryStorage(unittest.TestCase):
     def tearDown(self):
         os.unlink(self.tmpfile.name)
 
+    @patch("analyst.fetch_page")
+    @patch("analyst.web_search")
     @patch("analyst._call_llm")
-    def test_degraded_answer_not_stored_in_memory(self, mock_llm):
-        plan_response = MagicMock()
-        plan_response.choices = [MagicMock()]
-        plan_response.choices[0].message.content = "- Search"
-        plan_response.usage = MagicMock(prompt_tokens=100, completion_tokens=10)
-
-        answer_response = MagicMock()
-        answer_response.choices = [MagicMock()]
-        answer_response.choices[0].message.content = (
+    def test_degraded_answer_not_stored_in_memory(self, mock_llm, mock_search,
+                                                    mock_fetch):
+        degraded_text = (
             "It appears that the response is a string of characters. "
             "Try a Base64 decode. [https://example.com/data]\n\n"
             "SOURCES:\n- https://example.com/data: encoded content"
         )
-        answer_response.choices[0].message.tool_calls = None
-        answer_response.usage = MagicMock(prompt_tokens=200, completion_tokens=50)
-
         mock_llm.side_effect = [
-            (plan_response, "test-model", MagicMock()),
-            (answer_response, "test-model", MagicMock()),
+            (_std_plan(), "test-model", MagicMock()),
+            (_std_eval(), "test-model", MagicMock()),
+            (_mock_response(degraded_text, pt=200, ct=50),
+             "test-model", MagicMock()),
         ]
+        mock_search.return_value = _std_search()
+        mock_fetch.return_value = _std_page()
 
         answer = run_analyst(
             "What was Titan Company's revenue?", memory=self.memory,
